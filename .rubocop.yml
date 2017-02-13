@@ -1,0 +1,44 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'script/**/*'
+    - 'log/**/*'
+    - 'tmp/**/*'
+    - '**/Gemfile'
+    - 'vendor/**/*'
+
+# Rails
+
+Rails:
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - 'app/models/role.rb'
+
+# Style
+
+Style/Documentation:
+  Enabled: false
+
+# Metrics
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+    - 'app/models/concerns/*'
+    - 'app/controllers/concerns/*'
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/AbcSize:
+  Max: 25

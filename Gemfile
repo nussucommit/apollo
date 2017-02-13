@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Ruby version
+ruby '2.4.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgres
@@ -55,6 +58,11 @@ group :development do
   gem 'bullet'
   # Trace routes
   gem 'traceroute'
+end
+
+group :test do
+  # Test coverage
+  gem 'coveralls'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
