@@ -1,2 +1,0 @@
-class TimeRangeController < ApplicationController
-end

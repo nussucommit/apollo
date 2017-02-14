@@ -1,0 +1,2 @@
+class TimeRangesController < ApplicationController
+end
