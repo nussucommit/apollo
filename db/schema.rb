@@ -10,14 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214123813) do
+ActiveRecord::Schema.define(version: 20170214130631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "duties", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.date     "date"
+    t.integer  "timeslot_id"
+    t.integer  "user_id"
+    t.index ["timeslot_id"], name: "index_duties_on_timeslot_id", using: :btree
+    t.index ["user_id"], name: "index_duties_on_user_id", using: :btree
   end
 
   create_table "places", force: :cascade do |t|
@@ -56,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170214123813) do
     t.string   "position"
   end
 
+  add_foreign_key "duties", "timeslots"
+  add_foreign_key "duties", "users"
   add_foreign_key "timeslots", "places"
   add_foreign_key "timeslots", "time_ranges"
   add_foreign_key "timeslots", "users"
