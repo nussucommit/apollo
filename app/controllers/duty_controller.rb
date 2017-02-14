@@ -1,0 +1,2 @@
+class DutyController < ApplicationController
+end
