@@ -36,6 +36,7 @@ Metrics/BlockLength:
     - 'test/**/*'
     - 'app/models/concerns/*'
     - 'app/controllers/concerns/*'
+    - 'config/initializers/simple_form_bootstrap.rb'
 
 Metrics/MethodLength:
   Max: 15
