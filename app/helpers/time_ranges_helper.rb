@@ -1,0 +1,2 @@
+module TimeRangesHelper
+end

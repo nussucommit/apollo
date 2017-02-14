@@ -1,0 +1,2 @@
+class DutiesController < ApplicationController
+end

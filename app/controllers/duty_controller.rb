@@ -1,2 +1,0 @@
-class DutyController < ApplicationController
-end
