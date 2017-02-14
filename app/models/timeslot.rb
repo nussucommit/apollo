@@ -5,11 +5,11 @@
 #  id            :integer          not null, primary key
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  mc_only       :boolean
-#  day           :integer
-#  user_id       :integer
-#  time_range_id :integer
-#  place_id      :integer
+#  mc_only       :boolean          not null
+#  day           :integer          not null
+#  user_id       :integer          not null
+#  time_range_id :integer          not null
+#  place_id      :integer          not null
 #
 # Indexes
 #

@@ -5,8 +5,8 @@
 #  id          :integer          not null, primary key
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  date        :date
-#  timeslot_id :integer
+#  date        :date             not null
+#  timeslot_id :integer          not null
 #  user_id     :integer
 #
 # Indexes

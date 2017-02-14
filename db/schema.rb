@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214130631) do
+ActiveRecord::Schema.define(version: 20170214141037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20170214130631) do
   create_table "duties", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.date     "date"
-    t.integer  "timeslot_id"
+    t.date     "date",        null: false
+    t.integer  "timeslot_id", null: false
     t.integer  "user_id"
     t.index ["timeslot_id"], name: "index_duties_on_timeslot_id", using: :btree
     t.index ["user_id"], name: "index_duties_on_user_id", using: :btree
@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 20170214130631) do
   create_table "places", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "name"
+    t.string   "name",       null: false
+    t.index ["name"], name: "index_places_on_name", unique: true, using: :btree
   end
 
   create_table "time_ranges", force: :cascade do |t|
@@ -39,11 +40,11 @@ ActiveRecord::Schema.define(version: 20170214130631) do
   create_table "timeslots", force: :cascade do |t|
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.boolean  "mc_only"
-    t.integer  "day"
-    t.integer  "user_id"
-    t.integer  "time_range_id"
-    t.integer  "place_id"
+    t.boolean  "mc_only",       null: false
+    t.integer  "day",           null: false
+    t.integer  "user_id",       null: false
+    t.integer  "time_range_id", null: false
+    t.integer  "place_id",      null: false
     t.index ["place_id"], name: "index_timeslots_on_place_id", using: :btree
     t.index ["time_range_id"], name: "index_timeslots_on_time_range_id", using: :btree
     t.index ["user_id"], name: "index_timeslots_on_user_id", using: :btree
@@ -52,13 +53,17 @@ ActiveRecord::Schema.define(version: 20170214130631) do
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.string   "username"
-    t.string   "name"
-    t.string   "email"
-    t.string   "matric_number"
-    t.string   "phone_number"
-    t.string   "cell"
-    t.string   "position"
+    t.string   "username",      null: false
+    t.string   "name",          null: false
+    t.string   "email",         null: false
+    t.string   "matric_number", null: false
+    t.string   "phone_number",  null: false
+    t.string   "cell",          null: false
+    t.string   "position",      null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["matric_number"], name: "index_users_on_matric_number", unique: true, using: :btree
+    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true, using: :btree
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
   add_foreign_key "duties", "timeslots"
