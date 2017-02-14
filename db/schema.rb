@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214104538) do
+ActiveRecord::Schema.define(version: 20170214121705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170214104538) do
   create_table "places", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "time_ranges", force: :cascade do |t|
@@ -36,8 +37,15 @@ ActiveRecord::Schema.define(version: 20170214104538) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "username"
+    t.string   "name"
+    t.string   "email"
+    t.string   "matric_number"
+    t.string   "phone_number"
+    t.string   "cell"
+    t.string   "position"
   end
 
 end
