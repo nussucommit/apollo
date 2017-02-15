@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20170214141037) do
   create_table "time_ranges", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start"
+    t.datetime "end"
   end
 
   create_table "timeslots", force: :cascade do |t|
