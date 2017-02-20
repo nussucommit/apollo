@@ -14,5 +14,7 @@
 
 FactoryGirl.define do
   factory :place do
+    name {   }
+    
   end
 end
