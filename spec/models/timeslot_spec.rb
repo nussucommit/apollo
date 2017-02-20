@@ -50,4 +50,21 @@ RSpec.describe Timeslot, type: :model do
     timeslot = build(:timeslot, place_id: nil)
     expect(timeslot.save).to be false
   end
+
+  it 'has many duties' do
+    expect(Timeslot.reflect_on_association(:duties).macro).to be :has_many
+  end
+
+  it 'belongs to place' do
+    expect(Timeslot.reflect_on_association(:place).macro).to be :belongs_to
+  end
+
+  it 'belongs to time range' do
+    expect(Timeslot.reflect_on_association(:time_range).macro).to be :belongs_to
+  end
+
+  it 'belongs to default_user' do
+    expect(Timeslot.reflect_on_association(:default_user).macro)
+      .to(be(:belongs_to))
+  end
 end

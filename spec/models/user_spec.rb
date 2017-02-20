@@ -98,4 +98,12 @@ RSpec.describe User, type: :model do
 
     expect(user.save).to be true
   end
+
+  it 'has many duties' do
+    expect(User.reflect_on_association(:duties).macro).to be :has_many
+  end
+
+  it 'has many timeslots' do
+    expect(User.reflect_on_association(:timeslots).macro).to be :has_many
+  end
 end
