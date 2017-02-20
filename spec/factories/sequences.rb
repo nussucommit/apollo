@@ -5,16 +5,15 @@ FactoryGirl.define do
     name
   end
   sequence :unique_int do |n|
-    int = n%7
+    int = n % 7
     int
   end
   sequence :unique_bool do |n|
-    out = false
-    if n%2 == 0
-      out = false
-    else
-      out = true
-    end
+    out = if n.even?
+            false
+          else
+            true
+          end
     out
   end
 end
