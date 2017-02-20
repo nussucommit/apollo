@@ -26,7 +26,7 @@ RSpec.describe TimeRange, type: :model do
     time_range = build(:time_range, end: nil)
     expect(time_range.save).to be false
   end
-  
+
   it 'has many timeslots' do
     expect(TimeRange.reflect_on_association(:timeslots).macro).to be :has_many
   end

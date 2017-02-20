@@ -30,7 +30,7 @@ RSpec.describe Place, type: :model do
     place = build(:place, name: 'testing')
     expect(place.save).to be false
   end
-  
+
   it 'should has_many :timeslots' do
     expect(User.reflect_on_association(:timeslots).macro).to eq :has_many
   end

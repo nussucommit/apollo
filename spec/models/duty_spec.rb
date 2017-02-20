@@ -41,7 +41,7 @@ RSpec.describe Duty, type: :model do
   it 'should belongs_to :user' do
     expect(Duty.reflect_on_association(:user).macro).to eq :belongs_to
   end
-  
+
   it 'should belongs_to :timeslot' do
     expect(Duty.reflect_on_association(:timeslot).macro).to eq :belongs_to
   end
