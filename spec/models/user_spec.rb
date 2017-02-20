@@ -92,13 +92,6 @@ RSpec.describe User, type: :model do
     expect(user.save).to be false
   end
 
-  it 'saves when username, email, matric and phone number are unique' do
-    create(:user)
-    user = build(:user)
-
-    expect(user.save).to be true
-  end
-
   it 'has many duties' do
     expect(User.reflect_on_association(:duties).macro).to be :has_many
   end

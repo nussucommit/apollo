@@ -37,4 +37,12 @@ RSpec.describe Duty, type: :model do
     duty = build(:duty, user_id: nil)
     expect(duty.save).to be true
   end
+
+  it 'should belongs_to :user' do
+    expect(Duty.reflect_on_association(:user).macro).to eq :belongs_to
+  end
+
+  it 'should belongs_to :timeslot' do
+    expect(Duty.reflect_on_association(:timeslot).macro).to eq :belongs_to
+  end
 end
