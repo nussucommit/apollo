@@ -24,6 +24,6 @@ class Timeslot < ApplicationRecord
   belongs_to :time_range
   belongs_to :default_user, class_name: User
   enum day: Date::DAYNAMES
-  validates :day, presence: true
+  validates :day, :default_user_id, :time_range_id, :place_id, presence: true
   validates :mc_only, inclusion: [true, false]
 end
