@@ -33,4 +33,16 @@ RSpec.describe Timeslot, type: :model do
     timeslot = build(:timeslot, day: nil)
     expect(timeslot.save).to be false
   end
+  it 'does not save if default_user_id is null' do
+    timeslot = build(:timeslot, default_user_id: nil)
+    expect(timeslot.save).to be false
+  end
+  it 'does not save if time_range_id is null' do
+    timeslot = build(:timeslot, time_range: nil)
+    expect(timeslot.save).to be false
+  end
+  it 'does not save if place_id is null' do
+    timeslot = build(:timeslot, place_id: nil)
+    expect(timeslot.save).to be false
+  end
 end
