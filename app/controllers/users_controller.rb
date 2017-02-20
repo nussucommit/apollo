@@ -1,17 +1,11 @@
 class UsersController < ApplicationController
-  def list
-  end
-  
-  def add
-  end
+  def list; end
 
-  def view
-  end
+  def add; end
 
-  def update
-  end
+  def view; end
 
-  def delete
-  end
+  def update; end
 
+  def delete; end
 end
