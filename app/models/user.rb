@@ -23,5 +23,8 @@
 
 class User < ApplicationRecord
   has_many :duties
+  has_many :timeslots
+  validates :username, :name, :email, :matric_number, presence: true
+  validates :phone_number, :cell, :position, presence: true
   validates :username, :email, :matric_number, :phone_number, uniqueness: true
 end

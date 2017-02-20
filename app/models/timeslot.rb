@@ -22,5 +22,6 @@ class Timeslot < ApplicationRecord
   has_many :duties
   belongs_to :place
   belongs_to :time_range
+  belongs_to :user, foreign_key: 'default_user_id'
   validates :mc_only, :day, presence: true
 end

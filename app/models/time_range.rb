@@ -10,6 +10,7 @@
 #
 
 class TimeRange < ApplicationRecord
+  has_many :timeslots
   validates :start, presence: true
   validates :end, presence: true
 end
