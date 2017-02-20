@@ -6,4 +6,5 @@ class DutiesController < ApplicationController
   def release; end
 
   def copy; end
+
 end

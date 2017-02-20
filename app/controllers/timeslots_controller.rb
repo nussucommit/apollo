@@ -1,9 +1,10 @@
 class TimeslotsController < ApplicationController
-  def create; end
-
   def view; end
+
+  def create; end
 
   def update; end
 
-  def destroy; end
+  def delete; end
+
 end
