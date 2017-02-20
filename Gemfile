@@ -62,7 +62,7 @@ end
 
 group :test do
   # Test coverage
-  gem 'coveralls'
+  gem 'coveralls', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
