@@ -4,12 +4,9 @@ rvm: 2.4.0
 bundler_args: "--without production development"
 services: postgresql
 
-before_install:
-- gem update --system
-
 before_script:
 - psql -c 'create database apollo_test;' -U postgres
 - cp config/database.yml.default config/database.yml
 script:
-  - "bundle exec rake test"
+  - "bundle exec rspec"
   - "bundle exec rubocop -D -f simple"
