@@ -2,7 +2,7 @@
 <head>
   <title>NUSSU commIT</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="widspan=device-widspan, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -73,42 +73,51 @@
     </div>
 
   <div class="col-sm-1"></div>
-    <div id="calendar_generator" class="col-sm-8 table-responsive">
+    <div id="calendar_generator" class="col-sm-8">
       <br>
-      <table class="table table-bordered table-condensed">
-        <tbody>
-          <% %w(Time Mon Tue Wed Thu Fri Sat Sun).each do |day| %>
-              <% if day == "Time" %>
-                <tr>
-                  <td class="bg-warning"><%= day %></td>
-                  <td class="bg-warning">Place</td>
-                  <% ('08:00'.to_time.to_i .. '22:00'.to_time.to_i).step(1.hour).each do |time| %>
-                    <td class="bg-warning "><%= Time.at(time).strftime('%H%M') %></td>
-                    <td class="bg-warning"></td>
-                  <% end %>
-                </tr>
+        <div class="table_time">
+            <% ('08:00'.to_time.to_i .. '22:00'.to_time.to_i).step(1.hour).each do |time| %>
+              <% if time == '08:00'%>
+                <div class="table_time_element"><%= Time.at(time).strftime('%H%M') %></div>
               <% else %>
-                <tr>
-                  <th rowspan="2" class="bg-warning"><%= day %></th>
-                  <td class="bg-warning">AS7</td>
-                  <% (1..15).each do |i| %>
-                    <td colspan="2"></td>
-                  <% end %>
-                </tr>
-                <tr>
-                  <td class="bg-warning">YIH</td>
-                  <% (1..15).each do |i| %>
-                    <td colspan="2"></td>
-                  <% end %>
-                </tr>
+                <div class="table_time_element"><%= Time.at(time).strftime('%H%M') %></div>
               <% end %>
-            </tr>
+            <% end %>
+        </div>
+        <div class="timetable">
+          <% %w(Mon Tue Wed Thur Fri Sat Sun).each do |day| %>
+
+
+              <div class="table_body">
+                <div class="table_day_rows">
+                  <% (1..2).each do |i| %>
+                    <% if i == 1 %>
+                      <div class="bg-warning table_day_cell"><%= day %></div>
+                      <span class="bg-warning table_place1">AS7</span>
+                      <% (1..15).each do |i| %>
+                        <span class="table_time"></span>
+                        <span class="table_time"></span>
+                      <% end %>
+                      <br>
+                    <% else %>
+                      <div class="bg-warning table_day_cell"></div>
+                      <span class="bg-warning table_place2">YIH</span>
+                      <% (1..15).each do |i| %>
+                        <span class="table_time"></span>
+                        <span class="table_time"></span>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+            </div>
           <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+        </div>
+
+
+
+
+
+
 
 
 </body>

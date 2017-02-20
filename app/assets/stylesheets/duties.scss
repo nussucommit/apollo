@@ -1,3 +1,20 @@
 // Place all the styles related to the duties controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.table_time{
+  text-align: left;
+  -webkit-transform: translate(12%);
+  transform: translate(12%);
+}
+.table_time_element{
+  width: 10%;
+  display: inline-block;
+}
+.table_day_cell{
+  display: inline-block;
+  width: 8%;
+}
+.table_place2{
+
+}
