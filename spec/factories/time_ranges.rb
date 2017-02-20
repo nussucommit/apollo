@@ -11,5 +11,7 @@
 
 FactoryGirl.define do
   factory :time_range do
+    start { Time.zone.now }
+    add_attribute(:end) { Time.zone.now }
   end
 end
