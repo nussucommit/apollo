@@ -51,25 +51,32 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-3">
-          <h2>Announcements</h2>
-          <div class="d-inline bg-danger">Put some texts here</div>
-          <div class="form-group">
+          <div class="hidden-xs">
+            <h2>Announcements</h2>
             <div>
-              <label for="Go to date: "></label>
-              <input type='date' class="form-control" />
+              <h3>Angel Mortal Game has Ended</h3>
+              <p>Check your angels here: (blah). Scold your angel if you don't get anything</p>
             </div>
+            <hr>
+            <h4>AY16/17 Sem 2 Week 7</h4>
+            <h4>4/16 duty hours this week.</h4>
           </div>
-          <ul class="pagination">
+
+          <ul class="pagination" id="duty-pagination">
             <li class="page-item">
-              <a class="page-link" href="#">Previous</a>
-            </li>
-            <li class="page-item active">
-              <span class="page-link">Today<span class="sr-only">(current)</span></span>
+              <a class="page-link" href="#">Prev Week</a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">Next</a>
+              <a class="page-link" href="#">Next Week</a>
             </li>
           </ul>
+          <div class="form-group hidden-xs">
+            <div>
+              <label for="go-to-date">Go to date:</label>
+              <input name="go-to-date" type="date" class="form-control"/>
+            </div>
+          </div>
+          <h4>Next duty: Wed 22/2 0800-1000</h4>
         </div>
 
         <div class="col-sm-9">
@@ -90,7 +97,7 @@
                   <tr <%= 'class=last-row-in-day' if i == 1 %>>
                     <% if i == 0 %>
                       <td class="duty-day" rowspan="2">
-                        <%= day.upcase.split('').join('<br>').html_safe %>
+                        <%= day %><br>1 Jan
                       </td>
                       <td class="duty-place">YIH</td>
                       <% (2 * columns).times do %>
@@ -108,14 +115,6 @@
             </table>
           </div>
         </div>
-
-        <footer>
-          <div class="container">
-            <div class="col-sm-4 bg-faded text-muted">
-              Copyright © 2016-2017 NUSSU CommIT Technical Cell
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   </body>

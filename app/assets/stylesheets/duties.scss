@@ -15,11 +15,6 @@
   td {
     vertical-align: middle !important;
   }
-
-  .duty-day {
-    border-bottom: 1px solid #999 !important;
-    line-height: 1.2;
-  }
 }
 
 .first-place {
@@ -32,4 +27,8 @@
 
 .last-row-in-day.last-row-in-day {
   border-bottom: 1px solid #999 !important;
+}
+
+#duty-pagination {
+  margin: 10px 0;
 }
