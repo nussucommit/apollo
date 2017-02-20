@@ -24,62 +24,74 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'saves when nothing is nill' do
+  it 'saves when nothing is null' do
     user = build(:user)
     expect(user.save).to be true
   end
-  it 'does not save when username is nill' do
+
+  it 'does not save when username is null' do
     user = build(:user, username: nil)
     expect(user.save).to be false
   end
-  it 'does not save when name is nill' do
+
+  it 'does not save when name is null' do
     user = build(:user, name: nil)
     expect(user.save).to be false
   end
-  it 'does not save when email is nill' do
+
+  it 'does not save when email is null' do
     user = build(:user, email: nil)
     expect(user.save).to be false
   end
-  it 'does not save when matric number is nill' do
+
+  it 'does not save when matric number is null' do
     user = build(:user, matric_number: nil)
     expect(user.save).to be false
   end
-  it 'does not save when phone number is nill' do
+
+  it 'does not save when phone number is null' do
     user = build(:user, phone_number: nil)
     expect(user.save).to be false
   end
-  it 'does not save when cell is nill' do
+
+  it 'does not save when cell is null' do
     user = build(:user, cell: nil)
     expect(user.save).to be false
   end
-  it 'does not save when position is nill' do
+
+  it 'does not save when position is null' do
     user = build(:user, position: nil)
     expect(user.save).to be false
   end
+
   it 'does not save when username is not unique' do
     create(:user, username: 'testing')
     user = build(:user, username: 'testing')
 
     expect(user.save).to be false
   end
+
   it 'does not save when email is not unique' do
     create(:user, email: 'testing@gmail.com')
     user = build(:user, email: 'testing@gmail.com')
 
     expect(user.save).to be false
   end
+
   it 'does not save when matric number is not unique' do
     create(:user, matric_number: 'testing')
     user = build(:user, matric_number: 'testing')
 
     expect(user.save).to be false
   end
+
   it 'does not save when phone number is not unique' do
     create(:user, phone_number: 'testing')
     user = build(:user, phone_number: 'testing')
 
     expect(user.save).to be false
   end
+
   it 'saves when username, email, matric and phone number are unique' do
     create(:user)
     user = build(:user)

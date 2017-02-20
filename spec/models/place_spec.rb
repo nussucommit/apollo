@@ -19,15 +19,12 @@ RSpec.describe Place, type: :model do
     place = build(:place)
     expect(place.save).to be true
   end
+
   it 'does not save when name is null' do
     place = build(:place, name: nil)
     expect(place.save).to be false
   end
-  it 'saves when name is unique' do
-    create(:place)
-    place = build(:place)
-    expect(place.save).to be true
-  end
+
   it 'does not save when name is not unique' do
     create(:place, name: 'testing')
     place = build(:place, name: 'testing')

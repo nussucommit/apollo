@@ -4,16 +4,8 @@ FactoryGirl.define do
     n.times { name.succ! }
     name
   end
-  sequence :unique_int do |n|
-    int = n % 7
-    int
-  end
-  sequence :unique_bool do |n|
-    out = if n.even?
-            false
-          else
-            true
-          end
-    out
-  end
+
+  sequence(:days) { |n| n % 7 }
+
+  sequence(:bool, &:odd?)
 end

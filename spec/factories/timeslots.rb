@@ -20,8 +20,8 @@
 
 FactoryGirl.define do
   factory :timeslot do
-    mc_only { generate(:unique_bool) }
-    day { generate(:unique_int) }
+    mc_only { generate(:bool) }
+    day { generate(:days) }
     association :default_user, factory: :user
     time_range
     place
