@@ -10,11 +10,11 @@
 Place.create(name: 'YIH')
 Place.create(name: 'AS8')
 
-('08:00'.to_time.to_i..'09:30'.to_time.to_i).step(30.minutes).each do |time|
+(Time.zone.parse('08:00').to_i..Time.zone.parse('09:30').to_i).step(30.minutes.to_i).each do |time|
   start = Time.zone.at(time)
   TimeRange.create(start: start, end: start + 30.minutes)
 end
-('10:00'.to_time.to_i..'20:00'.to_time.to_i).step(1.hour).each do |time|
+(Time.zone.parse('10:00').to_i..Time.zone.parse('20:00').to_i).step(1.hour.to_i).each do |time|
   start = Time.zone.at(time)
   TimeRange.create(start: start, end: start + 1.hour)
 end
@@ -27,18 +27,20 @@ User.create(username: 'admin', name: 'admin', email: 'admin@gmail.com',
 Date::DAYNAMES.each do |day|
   TimeRange.all.each do |tr|
     mc = nil
+    open = tr.start.in_time_zone('Singapore')
+    close = tr.end.in_time_zone('Singapore')
 
     if day == 'Sunday'
-      next if tr.start < '09:30'.to_time || tr.end > '15:00'.to_time
-      mc = (tr.start == '09:30'.to_time || tr.end == '15:00'.to_time)
+      next if open < Time.zone.parse('09:30') || close > Time.zone.parse('15:00')
+      mc = (open == Time.zone.parse('09:30') || close == Time.zone.parse('15:00'))
 
     elsif day == 'Saturday'
-      next if tr.start < '08:30'.to_time || tr.end > '17:00'.to_time
-      mc = (tr.start == '08:30'.to_time || tr.end == '17:00'.to_time)
+      next if open < Time.zone.parse('08:30') || close > Time.zone.parse('17:00')
+      mc = (open == Time.zone.parse('08:30') || close == Time.zone.parse('17:00'))
 
     else
-      next if tr.start < '08:30'.to_time || tr.end > '21:00'.to_time
-      mc = (tr.start == '08:30'.to_time || tr.end == '21:00'.to_time)
+      next if open < Time.zone.parse('08:30') || close > Time.zone.parse('21:00')
+      mc = (open == Time.zone.parse('08:30') || close == Time.zone.parse('21:00'))
     end
 
     Timeslot.create(mc_only: mc, day: day, default_user: User.take,
@@ -50,17 +52,19 @@ end
 Date::DAYNAMES.each do |day|
   TimeRange.all.each do |tr|
     mc = nil
+    open = tr.start.in_time_zone('Singapore')
+    close = tr.end.in_time_zone('Singapore')
 
     if day == 'Sunday'
       next
 
     elsif day == 'Saturday'
-      next if tr.start < '08:00'.to_time || tr.end > '17:00'.to_time
-      mc = (tr.start == '08:00'.to_time || tr.end == '17:00'.to_time)
+      next if open < Time.zone.parse('08:00') || close > Time.zone.parse('17:00')
+      mc = (open == Time.zone.parse('08:00') || close == Time.zone.parse('17:00'))
 
     else
-      next if tr.start < '08:00'.to_time || tr.end > '21:00'.to_time
-      mc = (tr.start == '08:00'.to_time || tr.end == '21:00'.to_time)
+      next if open < Time.zone.parse('08:00') || close > Time.zone.parse('21:00')
+      mc = (open == Time.zone.parse('08:00') || close == Time.zone.parse('21:00'))
     end
 
     Timeslot.create(mc_only: mc, day: day, default_user: User.take,
