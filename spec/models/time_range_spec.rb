@@ -16,11 +16,11 @@ RSpec.describe TimeRange, type: :model do
     start = build(:time_range)
     expect(start.save).to be true
   end
-  it 'do not saves if start column is null' do
+  it 'does not save if start column is null' do
     start = build(:time_range, start: nil)
     expect(start.save).to be false
   end
-  it 'do not saves if end column is null' do
+  it 'does not save if end column is null' do
     start = build(:time_range, end: nil)
     expect(start.save).to be false
   end

@@ -23,7 +23,7 @@ RSpec.describe Place, type: :model do
     place = build(:place, name: nil)
     expect(place.save).to be false
   end
-  it 'save when name is unique' do
+  it 'saves when name is unique' do
     create(:place)
     place = build(:place)
     expect(place.save).to be true
