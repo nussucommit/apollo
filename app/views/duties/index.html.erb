@@ -1,122 +1,68 @@
-<html lang="en">
-  <head>
-    <title>NUSSU commIT</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="widspan=device-widspan, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">NUSSU commIT</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="#">Admin</a></li>
-            <li><a href="#">Grab Duty</a></li>
-            <li><a href="#">Problem Report</a></li>
-            <li><a href="#">Timesheet</a></li>
-            <li><a href="#">Members</a></li>
-            <li><a href="#">Guide</a></li>
-            <li><a href="#">EOD</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <span class="glyphicon glyphicon-user"></span>
-                Username
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">Schedule Availability</a></li>
-                <li><a href="#">Money Tracking</a></li>
-                <li><a href="#">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-3">
-          <h2>Announcements</h2>
-          <div class="d-inline bg-danger">Put some texts here</div>
-          <div class="form-group">
-            <div>
-              <label for="Go to date: "></label>
-              <input type='date' class="form-control" />
-            </div>
-          </div>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">Previous</a>
-            </li>
-            <li class="page-item active">
-              <span class="page-link">Today<span class="sr-only">(current)</span></span>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-sm-9">
-          <div class="table-responsive">
-            <table class="table table-condensed timetable">
-              <% columns = 0 %>
-              <tr>
-                <th class="last-row-in-day"></th>
-                <% ('08:00'.to_time.to_i..'21:00'.to_time.to_i).step(1.hour).each do |time| %>
-                  <th colspan="2" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
-                  <% columns += 1 %>
-                <% end %>
-                <th class="last-time last-row-in-day">2200</th>
-              </tr>
-
-              <% %w(Mon Tue Wed Thu Fri Sat Sun).each do |day| %>
-                <% 2.times do |i| %>
-                  <tr <%= 'class=last-row-in-day' if i == 1 %>>
-                    <% if i == 0 %>
-                      <td class="duty-day" rowspan="2">
-                        <%= day.upcase.split('').join('<br>').html_safe %>
-                      </td>
-                      <td class="duty-place">YIH</td>
-                      <% (2 * columns).times do %>
-                        <td class="duty-name first-place">Indra</td>
-                      <% end %>
-                    <% else %>
-                      <td class="duty-place">AS8</td>
-                      <% (2 * columns).times do %>
-                        <td class="duty-name second-place">Indra</td>
-                      <% end %>
-                    <% end %>
-                  </tr>
-                <% end %>
-              <% end %>
-            </table>
-          </div>
-        </div>
-
-        <footer>
-          <div class="container">
-            <div class="col-sm-4 bg-faded text-muted">
-              Copyright © 2016-2017 NUSSU CommIT Technical Cell
-            </div>
-          </div>
-        </footer>
+<div class="row">
+  <div class="col-sm-3">
+    <h2>Announcements</h2>
+    <div class="d-inline bg-danger">Put some texts here</div>
+    <div class="form-group">
+      <div>
+        <label for="Go to date: "></label>
+        <input type='date' class="form-control" />
       </div>
     </div>
-  </body>
-</html>
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#">Previous</a>
+      </li>
+      <li class="page-item active">
+        <span class="page-link">Today<span class="sr-only">(current)</span></span>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="table-responsive">
+      <table class="table table-condensed timetable">
+        <% columns = 0 %>
+        <tr>
+          <th class="last-row-in-day"></th>
+          <% ('08:00'.to_time.to_i..'21:00'.to_time.to_i).step(1.hour).each do |time| %>
+            <th colspan="2" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
+            <% columns += 1 %>
+          <% end %>
+          <th class="last-time last-row-in-day">2200</th>
+        </tr>
+
+        <% %w(Mon Tue Wed Thu Fri Sat Sun).each do |day| %>
+          <% 2.times do |i| %>
+            <tr <%= 'class=last-row-in-day' if i == 1 %>>
+              <% if i == 0 %>
+                <td class="duty-day" rowspan="2">
+                  <%= day.upcase.split('').join('<br>').html_safe %>
+                </td>
+                <td class="duty-place">YIH</td>
+                <% (2 * columns).times do %>
+                  <td class="duty-name first-place">Indra</td>
+                <% end %>
+              <% else %>
+                <td class="duty-place">AS8</td>
+                <% (2 * columns).times do %>
+                  <td class="duty-name second-place">Indra</td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="col-sm-4 bg-faded text-muted">
+        Copyright © 2016-2017 NUSSU CommIT Technical Cell
+      </div>
+    </div>
+  </footer>
+</div>
