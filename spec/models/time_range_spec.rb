@@ -12,5 +12,16 @@
 require 'rails_helper'
 
 RSpec.describe TimeRange, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'successfully saves if no column is null' do
+    start = build(:time_range)
+    expect(start.save).to be true
+  end
+  it 'do not saves if start column is null' do
+    start = build(:time_range, start: nil)
+    expect(start.save).to be false
+  end
+  it 'do not saves if end column is null' do
+    start = build(:time_range, end: nil)
+    expect(start.save).to be false
+  end
 end
