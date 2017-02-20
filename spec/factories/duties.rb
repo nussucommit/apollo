@@ -17,7 +17,7 @@
 
 FactoryGirl.define do
   factory :duty do
-    date Time.zone.now
+    date { Time.zone.now.to_date }
     timeslot
     user
   end
