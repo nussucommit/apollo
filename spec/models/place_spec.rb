@@ -5,11 +5,33 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  name       :string
+#  name       :string           not null
+#
+# Indexes
+#
+#  index_places_on_name  (name) UNIQUE
 #
 
 require 'rails_helper'
 
 RSpec.describe Place, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'saves when name is not null' do
+    place = build(:place)
+    expect(place.save).to be true
+  end
+
+  it 'does not save when name is null' do
+    place = build(:place, name: nil)
+    expect(place.save).to be false
+  end
+
+  it 'does not save when name is not unique' do
+    create(:place, name: 'testing')
+    place = build(:place, name: 'testing')
+    expect(place.save).to be false
+  end
+
+  it 'should has_many :timeslots' do
+    expect(User.reflect_on_association(:timeslots).macro).to eq :has_many
+  end
 end
