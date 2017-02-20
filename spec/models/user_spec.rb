@@ -58,26 +58,32 @@ RSpec.describe User, type: :model do
   end
   it 'does not save when username is not unique' do
     create(:user, username: 'testing')
-    user2 = build(:user, username: 'testing')
+    user = build(:user, username: 'testing')
 
-    expect(user2.save).to be false
+    expect(user.save).to be false
   end
   it 'does not save when email is not unique' do
     create(:user, email: 'testing@gmail.com')
-    user2 = build(:user, email: 'testing@gmail.com')
+    user = build(:user, email: 'testing@gmail.com')
 
-    expect(user2.save).to be false
+    expect(user.save).to be false
   end
   it 'does not save when matric number is not unique' do
     create(:user, matric_number: 'testing')
-    user2 = build(:user, matric_number: 'testing')
+    user = build(:user, matric_number: 'testing')
 
-    expect(user2.save).to be false
+    expect(user.save).to be false
   end
   it 'does not save when phone number is not unique' do
     create(:user, phone_number: 'testing')
-    user2 = build(:user, phone_number: 'testing')
+    user = build(:user, phone_number: 'testing')
 
-    expect(user2.save).to be false
+    expect(user.save).to be false
+  end
+  it 'saves when username, email, matric and phone number are unique' do
+    create(:user)
+    user = build(:user)
+
+    expect(user.save).to be true
   end
 end
