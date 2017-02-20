@@ -21,5 +21,16 @@
 require 'rails_helper'
 
 RSpec.describe Timeslot, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+	it 'successfully saves if no column is null' do
+		timeslot = build(:timeslot)
+		expect(timeslot.save).to be true
+	end
+	it 'does not save if mc_only is null' do
+		timeslot = build(:timeslot, mc_only: nil)
+		expect(timeslot.save).to be false
+	end
+	it 'does not save if day is null' do
+		timeslot = build(:timeslot, day: nil)
+		expect(timeslot.save).to be false
+	end
 end

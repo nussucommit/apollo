@@ -13,15 +13,15 @@ require 'rails_helper'
 
 RSpec.describe TimeRange, type: :model do
   it 'successfully saves if no column is null' do
-    start = build(:time_range)
-    expect(start.save).to be true
+    time_range = build(:time_range)
+    expect(time_range.save).to be true
   end
-  it 'do not saves if start column is null' do
-    start = build(:time_range, start: nil)
-    expect(start.save).to be false
+  it 'do not save if start column is null' do
+    time_range = build(:time_range, start: nil)
+    expect(time_range.save).to be false
   end
-  it 'do not saves if end column is null' do
-    start = build(:time_range, end: nil)
-    expect(start.save).to be false
+  it 'do not save if end column is null' do
+    time_range = build(:time_range, end: nil)
+    expect(time_range.save).to be false
   end
 end
