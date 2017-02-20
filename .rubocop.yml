@@ -29,11 +29,11 @@ Style/Documentation:
 
 Metrics/ClassLength:
   Exclude:
-    - 'test/**/*'
+    - 'spec/**/*'
 
 Metrics/BlockLength:
   Exclude:
-    - 'test/**/*'
+    - 'spec/**/*'
     - 'app/models/concerns/*'
     - 'app/controllers/concerns/*'
     - 'config/initializers/simple_form_bootstrap.rb'
