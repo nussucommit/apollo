@@ -16,4 +16,7 @@
 #
 
 class Duty < ApplicationRecord
+  belongs_to :timeslot
+  belongs_to :user, optional: true
+  validates :date, presence: true
 end

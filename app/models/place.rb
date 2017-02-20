@@ -13,4 +13,7 @@
 #
 
 class Place < ApplicationRecord
+  has_many :timeslots
+  validates :name, presence: true
+  validates :name, uniqueness: true
 end

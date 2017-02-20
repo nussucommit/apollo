@@ -18,5 +18,5 @@
 require 'rails_helper'
 
 RSpec.describe Duty, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  pending "add dome examples to (or delete) #{__FILE__}"
 end

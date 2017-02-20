@@ -19,4 +19,8 @@
 #
 
 class Timeslot < ApplicationRecord
+  has_many :duties
+  belongs_to :place
+  belongs_to :time_range
+  validates :mc_only, :day, presence: true
 end

@@ -22,4 +22,6 @@
 #
 
 class User < ApplicationRecord
+  has_many :duties
+  validates :username, :email, :matric_number, :phone_number, uniqueness: true
 end

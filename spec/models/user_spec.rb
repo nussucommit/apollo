@@ -24,5 +24,60 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'saves when nothing is nill' do
+    user = build(:user)
+    expect(user.save).to be true
+  end
+  it 'does not save when username is nill' do
+    user = build(:user, username: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when name is nill' do
+    user = build(:user, name: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when email is nill' do
+    user = build(:user, email: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when matric number is nill' do
+    user = build(:user, matric_number: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when phone number is nill' do
+    user = build(:user, phone_number: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when cell is nill' do
+    user = build(:user, cell: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when position is nill' do
+    user = build(:user, position: nil)
+    expect(user.save).to be false
+  end
+  it 'does not save when username is not unique' do
+    create(:user, username: 'testing')
+    user2 = build(:user, username: 'testing')
+
+    expect(user2.save).to be false
+  end
+  it 'does not save when email is not unique' do
+    create(:user, email: 'testing@gmail.com')
+    user2 = build(:user, email: 'testing@gmail.com')
+
+    expect(user2.save).to be false
+  end
+  it 'does not save when matric number is not unique' do
+    create(:user, matric_number: 'testing')
+    user2 = build(:user, matric_number: 'testing')
+
+    expect(user2.save).to be false
+  end
+  it 'does not save when phone number is not unique' do
+    create(:user, phone_number: 'testing')
+    user2 = build(:user, phone_number: 'testing')
+
+    expect(user2.save).to be false
+  end
 end
