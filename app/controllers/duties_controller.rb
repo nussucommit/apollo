@@ -4,4 +4,6 @@ class DutiesController < ApplicationController
   def grab; end
 
   def release; end
+
+  def copy; end
 end
