@@ -12,6 +12,7 @@ rerun.txt
 pickle-email-*.html
 **/.DS_Store
 **/*~
+**/*.swp
 
 config/initializers/secret_token.rb
 
