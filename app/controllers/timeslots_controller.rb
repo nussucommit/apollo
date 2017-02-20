@@ -6,5 +6,4 @@ class TimeslotsController < ApplicationController
   def update; end
 
   def delete; end
-
 end
