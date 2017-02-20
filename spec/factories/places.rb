@@ -14,5 +14,6 @@
 
 FactoryGirl.define do
   factory :place do
+    name { generate(:unique) }
   end
 end

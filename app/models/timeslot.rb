@@ -23,5 +23,6 @@ class Timeslot < ApplicationRecord
   belongs_to :place
   belongs_to :time_range
   belongs_to :user, foreign_key: 'default_user_id'
+  enum day: [Date::DAYNAMES]
   validates :mc_only, :day, presence: true
 end
