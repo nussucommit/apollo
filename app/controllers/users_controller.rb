@@ -5,9 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      flash.now[:notice] = 'User created!'
-    end
+    flash.now[:notice] = 'User created!' if @user.save
 
     render :new
   end
