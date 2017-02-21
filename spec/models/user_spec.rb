@@ -72,28 +72,24 @@ RSpec.describe User, type: :model do
   it 'does not save when username is not unique' do
     create(:user, username: 'testing')
     user = build(:user, username: 'testing')
-
     expect(user.save).to be false
   end
 
   it 'does not save when email is not unique' do
     create(:user, email: 'testing@gmail.com')
     user = build(:user, email: 'testing@gmail.com')
-
     expect(user.save).to be false
   end
 
   it 'does not save when matric number is not unique' do
     create(:user, matric_number: 'testing')
     user = build(:user, matric_number: 'testing')
-
     expect(user.save).to be false
   end
 
   it 'does not save when phone number is not unique' do
     create(:user, phone_number: 'testing')
     user = build(:user, phone_number: 'testing')
-
     expect(user.save).to be false
   end
 
@@ -103,5 +99,40 @@ RSpec.describe User, type: :model do
 
   it 'has many timeslots' do
     expect(User.reflect_on_association(:timeslots).macro).to be :has_many
+  end
+
+  it 'does not save when username has uppercase' do
+    user = build(:user, username: 'opasdveAWNA')
+    expect(user.save).to be false
+  end
+
+  it 'does not save when username has special characters' do
+    user = build(:user, username: '~!@#$%^& *()_+=')
+    expect(user.save).to be false
+  end
+
+  it 'does not save when username is less then 4 characters' do
+    user = build(:user, username: '123')
+    expect(user.save).to be false
+  end
+
+  it 'saves when username is 4 characters' do
+    user = build(:user, username: '1234')
+    expect(user.save).to be true
+  end
+
+  it 'does not save when username is more than 20 characters' do
+    user = build(:user, username: 'qwertyuiopasdfghjklzx')
+    expect(user.save).to be false
+  end
+
+  it 'saves when username is 20 characters' do
+    user = build(:user, username: 'qwertyuiopasdfghjklz')
+    expect(user.save).to be true
+  end
+
+  it 'does not save when email is not in the correct format' do
+    user = build(:user, email: 'hallelujah essaim')
+    expect(user.save).to be false
   end
 end
