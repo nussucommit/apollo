@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220071053) do
+ActiveRecord::Schema.define(version: 20170220153812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20170220071053) do
   create_table "time_ranges", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "start",      null: false
-    t.datetime "end",        null: false
+    t.time     "start",      null: false
+    t.time     "end",        null: false
   end
 
   create_table "timeslots", force: :cascade do |t|
