@@ -25,6 +25,7 @@ FactoryGirl.define do
   factory :user do
     username { generate(:unique) }
     name 'Herbert Ilhan'
+    password { generate(:unique) }
     email { "#{generate(:unique)}@gmail.com" }
     matric_number { generate(:unique) }
     phone_number { generate(:unique) }

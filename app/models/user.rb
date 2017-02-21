@@ -22,6 +22,8 @@
 #
 
 class User < ApplicationRecord
+  devise :database_authenticatable, :recoverable,
+         :rememberable, :validatable
   has_many :duties
   has_many :timeslots
   validates :username, :name, :email, :matric_number, presence: true
@@ -31,5 +33,18 @@ class User < ApplicationRecord
     { with: /\A[a-z0-9]+\z/, message: 'lowercase letters and numbers only' }
   validates :username, length: { in: 4..20 }
   validates :email, format:
-    { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+    { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+
+  attr_accessor :login
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if (login = conditions.delete(:login))
+      where(conditions.to_h)
+        .find_by(['lower(username) = :value OR lower(email) = :value',
+                  { value: login.downcase }])
+    elsif conditions.key?(:username) || conditions.key?(:email)
+      find_by(conditions.to_h)
+    end
+  end
 end
