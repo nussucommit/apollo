@@ -27,13 +27,17 @@
 #
 
 class User < ApplicationRecord
-  devise :database_authenticatable, :recoverable,
-         :rememberable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
   has_many :duties
   has_many :timeslots
   validates :username, :name, :email, :matric_number, presence: true
   validates :phone_number, :cell, :position, presence: true
   validates :username, :email, :matric_number, :phone_number, uniqueness: true
+  validates :username, format:
+    { with: /\A[a-z0-9]+\z/, message: 'lowercase letters and numbers only' }
+  validates :username, length: { in: 4..20 }
+  validates :email, format:
+    { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   attr_accessor :login
 
