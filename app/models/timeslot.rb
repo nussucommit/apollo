@@ -23,7 +23,7 @@ class Timeslot < ApplicationRecord
   belongs_to :place
   belongs_to :time_range
   belongs_to :default_user, class_name: User
-  enum day: Date::DAYNAMES
+  enum day: Date::DAYNAMES.rotate
   validates :day, :default_user_id, :time_range_id, :place_id, presence: true
   validates :mc_only, inclusion: [true, false]
 

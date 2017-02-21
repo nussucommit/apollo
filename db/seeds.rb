@@ -19,10 +19,10 @@ end
   TimeRange.create(start: start, end: start + 1.hour)
 end
 
-User.create(username: 'admin', name: 'Elferia Valkyrie',
-            email: 'admin@gmail.com', matric_number: 'A0000000A',
-            phone_number: '88888888', cell: 'Presidential',
-            position: 'Adminstrator')
+User.create(username: 'admin', name: 'Elferia', password: 'nussucommit',
+            password_confirmation: 'nussucommit', email: 'admin@gmail.com',
+            matric_number: 'A0000000A', phone_number: '88888888',
+            cell: 'Presidential', position: 'Adminstrator')
 
 # Timeslots in YIH
 Date::DAYNAMES.each do |day|
@@ -62,3 +62,7 @@ Date::DAYNAMES.each do |day|
                     time_range: tr, place: Place.find_by(name: 'AS8'))
   end
 end
+
+Announcement.create(title: 'Appreciation Dinner',
+                    date: Time.zone.now,
+                    contents: 'Don\'t forget to come for AD!!')

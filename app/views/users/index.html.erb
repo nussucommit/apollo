@@ -1,0 +1,22 @@
+<h1>All Members</h1>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Matric No.</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Cell</th>
+    <th>Position</th>
+  </tr>
+  <% @users.each do |u| %>
+    <tr>
+      <td><%= u.name %></td>
+      <td><%= u.matric_number %></td>
+      <td><%= u.email %></td>
+      <td><%= u.phone_number %></td>
+      <td><%= u.cell %></td>
+      <td><%= u.position %></td>
+    </tr>
+  <% end %>
+</table>
