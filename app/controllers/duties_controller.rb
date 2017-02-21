@@ -2,10 +2,11 @@ class DutiesController < ApplicationController
   def index
     @date = params[:date]
     starting_date = date - (date.cwdays - 1)
-    @duties = Array.new(7)
-    starting_date.upto(starting_date + 7) do |day|
-      @duties.push(day)
-    end
+    # @duties = Array.new(7)
+    # starting_date.upto(starting_date + 7) do |day|
+    #  @duties.push(day)
+    # end
+    @duties = Array.new(starting_date..(starting_date + 7))
     @time_ranges = Time_range.all
     @places = Place.all
   end
@@ -63,11 +64,13 @@ private
     params.require(:users).permit(:user_id)
   end
 
-  def duty_id_params
+  def duty_params
     params.require(:duties).permit(:duty_id)
   end
 
-  def timeslot_id_params
+  def timeslot_params
     params.require(:timeslots).permit(:timeslot_id)
   end
+end
+
 end
