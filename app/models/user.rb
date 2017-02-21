@@ -36,5 +36,5 @@ class User < ApplicationRecord
     { with: /\A[a-z0-9]+\z/, message: 'lowercase letters and numbers only' }
   validates :username, length: { in: 4..20 }
   validates :email, format:
-    { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+    { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 end
