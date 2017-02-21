@@ -13,4 +13,11 @@ class TimeRange < ApplicationRecord
   has_many :timeslots
   validates :start, presence: true
   validates :end, presence: true
+  validates :time_multiple_of_thirty_minutes
+
+  def time_multiple_of_thirty_minutes
+    if start % 30.minutes != 0 || add_attribute(:end) % 30.minutes != 0
+    errors.add :start, 'must be multiple of 30 minutes'
+    end
+  end
 end
