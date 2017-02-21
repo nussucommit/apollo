@@ -12,48 +12,51 @@ class DutiesController < ApplicationController
   end
 
   def process_grab
-    @user = User.find(user_id_params)
-    @duty = Duty.find(duty_id_params)
+    @user = User.find(user_params)
+    @duty = Duty.find(duty_params)
 
     # user_id of the selected duty_id should and must be null
     redirect_to action: 'index' if @duty.update(@user)
   end
 
   def process_drop
-    @user = User.find(user_id_params)
-    @duty = Duty.find(duty_id_params)
+    @user = User.find(user_params)
+    @duty = Duty.find(duty_params)
 
     redirect_to action: 'index' if @duty.update(:user_id, nil)
   end
 
   def edit
-    @user_id = User.find(user_id_params)
-    @duty_id = Duty.find(duty_id_params)
+    @user_id = User.find(user_params)
+    @duty_id = Duty.find(duty_params)
   end
 
   def update
-    @user_id = User.find(user_id_params)
-    @duty_id = Duty.find(duty_id_params)
+    @user_id = User.find(user_params)
+    @duty_id = Duty.find(duty_params)
 
-    redirect_to action: 'index' if @duty_id.update(@user_id)
+    redirect_to action: 'index' if @duty.update(@user)
   end
 
-  def setdefault
-    @user_id = User.find(user_id_params)
-    @timeslot_id = Timeslot.find(timeslot_id_params)
+  def set_default
+    @user = User.find(user_params)
+    @timeslot = Timeslot.find(timeslot_params)
 
-    redirect_to action: 'index' if @timeslot_id.update(@user_id)
+    redirect_to action: 'index' if @timeslot.update(@user)
   end
-
-  def user_id_params
+  
+  private
+  def user_params
     params.require(:users).permit(:user_id)
   end
 
-  def duty_id_params
+  def duty_params
     params.require(:duties).permit(:duty_id)
   end
 
-  def timeslot_id_params
+  def timeslot_params
     params.require(:timeslots).permit(:timeslot_id)
   end
+  end
+
 end
