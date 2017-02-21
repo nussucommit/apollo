@@ -3,5 +3,7 @@ class DutiesController < ApplicationController
     @start_time = TimeRange.order(:start).first &&
                   TimeRange.order(:start).first.start
     @end_time = TimeRange.order(:end).last && TimeRange.order(:end).last.end
+
+    @announcements = Announcement.all
   end
 end
