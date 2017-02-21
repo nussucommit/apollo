@@ -19,9 +19,10 @@ end
   TimeRange.create(start: start, end: start + 1.hour)
 end
 
-User.create(username: 'admin', name: 'admin', email: 'admin@gmail.com',
-            matric_number: 'admin', phone_number: '88888888',
-            cell: 'Presidential', position: 'Adminstrator')
+User.create(username: 'admin', name: 'Elferia Valkyrie',
+            email: 'admin@gmail.com', matric_number: 'A0000000A',
+            phone_number: '88888888', cell: 'Presidential',
+            position: 'Adminstrator')
 
 # Timeslots in YIH
 Date::DAYNAMES.each do |day|
@@ -33,11 +34,9 @@ Date::DAYNAMES.each do |day|
     if day == 'Sunday'
       next if open < '0930' || close > '1500'
       mc = (open == '0930' || close == '1500')
-
     elsif day == 'Saturday'
       next if open < '0830' || close > '1700'
       mc = (open == '0830' || close == '1700')
-
     else
       next if open < '0830' || close > '2100'
       mc = (open == '0830' || close == '2100')
