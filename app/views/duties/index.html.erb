@@ -82,31 +82,51 @@
         <div class="col-sm-9">
           <div class="table-responsive">
             <table class="table table-condensed timetable">
-              <% columns = 0 %>
               <tr>
                 <th class="last-row-in-day"></th>
-                <% ('08:00'.to_time.to_i..'21:00'.to_time.to_i).step(1.hour).each do |time| %>
-                  <th colspan="2" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
-                  <% columns += 1 %>
+
+                <% step = 1.hour %>
+                <% (@start_time.to_i..@end_time.to_i).step(step).each do |time| %>
+                  <% if time == @end_time.to_i %>
+                    <th class="last-time last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
+                  <% else %>
+                    <th colspan="<%= step / Timeslot::TIME_SNAP %>" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
+                  <% end %>
                 <% end %>
-                <th class="last-time last-row-in-day">2200</th>
               </tr>
 
-              <% %w(Mon Tue Wed Thu Fri Sat Sun).each do |day| %>
-                <% 2.times do |i| %>
-                  <tr <%= 'class=last-row-in-day' if i == 1 %>>
-                    <% if i == 0 %>
-                      <td class="duty-day" rowspan="2">
-                        <%= day %><br>1 Jan
+              <% Timeslot.days.keys.each do |day| %>
+                <% Place.all.each_with_index do |place, idx| %>
+                  <tr <%= 'class=last-row-in-day' if idx == Place.count - 1 %>>
+                    <% if idx == 0 %>
+                      <td class="duty-day" rowspan="<%= Place.count %>">
+                        <%= day[0..2] %><br>1 Jan
                       </td>
-                      <td class="duty-place">YIH</td>
-                      <% (2 * columns).times do %>
-                        <td class="duty-name first-place">Indra</td>
-                      <% end %>
+                    <% end %>
+
+                    <td class="duty-place"><%= place.name %></td>
+                    <% timeslots = Timeslot.where(day: day, place: place).includes(:time_range)
+                      .order('time_ranges.start') %>
+
+                    <% if timeslots.empty? %>
+                      <% offset = (@end_time - @start_time) / Timeslot::TIME_SNAP %>
                     <% else %>
-                      <td class="duty-place">AS8</td>
-                      <% (2 * columns).times do %>
-                        <td class="duty-name second-place">Indra</td>
+                      <% offset = (timeslots.first.time_range.start - @start_time) / Timeslot::TIME_SNAP %>
+                    <% end %>
+
+                    <% unless offset.zero? %>
+                      <td colspan="<%= offset %>" class="offset-cell"></td>
+                    <% end %>
+
+                    <% timeslots.each do |ts| %>
+                      <% range = (ts.time_range.end - ts.time_range.start) / Timeslot::TIME_SNAP %>
+                      <td colspan="<%= range %>" class="duty-cell"><%= "#{ts.default_user.name}" %></td>
+                    <% end %>
+
+                    <% unless timeslots.empty? %>
+                      <% last_offset = (@end_time - timeslots.last.time_range.end) / Timeslot::TIME_SNAP %>
+                      <% unless last_offset.zero? %>
+                        <td colspan="<%= last_offset %>" class="offset-cell"></td>
                       <% end %>
                     <% end %>
                   </tr>

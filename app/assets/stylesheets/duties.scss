@@ -10,19 +10,15 @@
     &.last-time {
       text-align: right;
     }
+
+    &.duty-cell {
+      border: 1px solid #999 !important;
+    }
   }
 
   td {
     vertical-align: middle !important;
   }
-}
-
-.first-place {
-  background-color: #ffeeee;
-}
-
-.second-place {
-  background-color: #eeffee;
 }
 
 .last-row-in-day.last-row-in-day {
