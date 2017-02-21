@@ -1,14 +1,62 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Apollo</title>
+    <title>NUSSU commIT</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widspan=device-widspan, initial-scale=1">
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+  <% if (yield :no_nav).empty? %>
+    <body>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#app-navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">NUSSU commIT</a>
+          </div>
+          <div class="collapse navbar-collapse" id="app-navbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><%= link_to 'Admin', admin_path %></li>
+              <li><a href="#">Grab Duty</a></li>
+              <li><a href="#">Problem Report</a></li>
+              <li><a href="#">Timesheet</a></li>
+              <li><%= link_to 'Members', users_path %></li>
+              <li><a href="#">Guide</a></li>
+              <li><a href="#">EOD</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="glyphicon glyphicon-user"></span>
+                  <%= current_user.username %>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">My Profile</a></li>
+                  <li><a href="#">Schedule Availability</a></li>
+                  <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
+    <%= console if params[:c] %>
+
+    <div class="container">
+      <p class="flash-notice"><%= notice %></p>
+      <p class="flash-alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+    </body>
 </html>

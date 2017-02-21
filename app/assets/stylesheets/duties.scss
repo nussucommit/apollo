@@ -1,3 +1,35 @@
-// Place all the styles related to the duties controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.timetable {
+  min-width: 2048px;
+  table-layout: fixed;
+
+  th,
+  td {
+    border: 0 !important;
+    text-align: center;
+
+    &.last-time {
+      text-align: right;
+    }
+  }
+
+  td {
+    vertical-align: middle !important;
+  }
+
+  .duty-day {
+    border-bottom: 1px solid #999 !important;
+    line-height: 1.2;
+  }
+}
+
+.first-place {
+  background-color: #ffeeee;
+}
+
+.second-place {
+  background-color: #eeffee;
+}
+
+.last-row-in-day.last-row-in-day {
+  border-bottom: 1px solid #999 !important;
+}
