@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root 'duties#index'
 
   resources :users
-  patch '/default', to: 'duties#mass_set_default'
-  resources :duties, only: [:index, :edit, :update]
-  patch '/grab', to: 'duty#process_grab'
-  patch '/drop', to: 'duty#process_drop'
+  resources :duties, only: [:index, :edit, :update] do
+    patch '/grab', to: 'duty#process_grab'
+    patch '/drop', to: 'duty#process_drop'
+  end
 end

@@ -1,12 +1,6 @@
 class DutiesController < ApplicationController
   def index
-    @date = params[:date]
-    starting_date = date - (date.cwdays - 1)
-    # @duties = Array.new(7)
-    # starting_date.upto(starting_date + 7) do |day|
-    #  @duties.push(day)
-    # end
-    @duties = Array.new(starting_date..(starting_date + 7))
+    @duties = Duty.find_this_week
     @time_ranges = Time_range.all
     @places = Place.all
   end
@@ -43,7 +37,7 @@ class DutiesController < ApplicationController
     @user = User.find(params[:user_id])
     @duties = Duty.find(params[:duty_ids])
     @duties.each do |duty|
-      duty.process_grab(duty.params[:user_id], params[:duty_id])
+      process_grab(duty.params[:user_id], params[:duty_id])
       unless duty.update(duty_params)
         flash[:notice] = 'Error!'
         render 'admin_edit'
@@ -53,19 +47,7 @@ class DutiesController < ApplicationController
     redirect_to root_path
   end
 
-  def set_default
-    @user = User.find(params[:user_id])
-    @timeslot = Timeslot.find(params[:timeslot_id])
 
-    redirect_to action: 'index' if @timeslot.update(@user_id)
-  end
-
-  def mass_set_default
-    @duties = Duty.find(params[:duty_ids])
-    @duties.each do |duty|
-      duty.set_default(duty, duty.params[:user_id], params[:timeslot_id])
-    end
-  end
 
   private
 
