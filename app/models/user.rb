@@ -27,9 +27,24 @@
 #
 
 class User < ApplicationRecord
+  devise :database_authenticatable, :recoverable,
+         :rememberable, :validatable
   has_many :duties
   has_many :timeslots
   validates :username, :name, :email, :matric_number, presence: true
   validates :phone_number, :cell, :position, presence: true
   validates :username, :email, :matric_number, :phone_number, uniqueness: true
+
+  attr_accessor :login
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if (login = conditions.delete(:login))
+      where(conditions.to_h)
+        .find_by(['lower(username) = :value OR lower(email) = :value',
+                  { value: login.downcase }])
+    elsif conditions.key?(:username) || conditions.key?(:email)
+      find_by(conditions.to_h)
+    end
+  end
 end
