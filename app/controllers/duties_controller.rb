@@ -25,19 +25,19 @@ class DutiesController < ApplicationController
     redirect_to action: 'index' if @duty.update(:user_id, nil)
   end
 
-  def edit#mass edit
+  def admin_edit#mass edit
     @user = User.find(params[:user_id])
     @duties = Duty.find(params[:duty_ids])
   end
 
-  def update
+  def admin_update
     @user = User.find(params[:user_id])
     @duties = Duty.find(params[:duty_ids])
     @duties.each do |duty|
       duty.process_grab(duty.params[:user_id], params[:duty_id])
       unless duty.update(duty_params)
         flash[:notice] = "Error!"
-        render 'edit'
+        render 'admin_edit'
       end
     end
     flash[:notice] = "Successfully update the duty status!"
@@ -49,6 +49,13 @@ class DutiesController < ApplicationController
     @timeslot = Timeslot.find(params[:timeslot_id])
 
     redirect_to action: 'index' if @timeslot.update(@user_id)
+  end
+
+  def mass_sel_default
+    @duties = Duty.find(params[:duty_ids])
+    @duties.each do |duty|
+      duty.set_default(duty, duty.params[:user_id], self.params[:timeslot_id])
+    end
   end
 
 private
