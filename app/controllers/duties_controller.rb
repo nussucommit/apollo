@@ -34,8 +34,6 @@ class DutiesController < ApplicationController
     render 'admin_update'
   end
 
-
-
   def admin_edit # mass edit
     @user = User.find(params[:user_id])
     @duties = Duty.find(params[:duty_ids])
