@@ -12,5 +12,11 @@ RSpec.describe DutiesController, type: :controller do
       get :index
       expect(response).to have_http_status :ok
     end
+
+    it 'opens user detail if the duty is not grab able' do
+    end
+
+    it 'open mass edit when click update' do
+    end
   end
 end
