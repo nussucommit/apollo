@@ -2,10 +2,14 @@
   <div class="col-sm-3">
     <div class="hidden-xs">
       <h2>Announcements</h2>
-      <div>
-        <h3>Angel Mortal Game has Ended</h3>
-        <p>Check your angels here: (blah). Scold your angel if you don't get anything</p>
-      </div>
+
+      <% @announcements.each do |a| %>
+        <div>
+          <h3><%= a.title %></h3>
+          <h5><%= a.date %></h5>
+          <p><%= a.contents %></p>
+        </div>
+      <% end %>
       <hr>
       <h4>AY16/17 Sem 2 Week 7</h4>
       <h4>4/16 duty hours this week.</h4>
@@ -49,13 +53,15 @@
             <tr <%= 'class=last-row-in-day' if idx == Place.count - 1 %>>
               <% if idx == 0 %>
                 <td class="duty-day" rowspan="<%= Place.count %>">
-                  <%= day[0..2] %><br>1 Jan
+                  <%= day[0..2] %>
+                  <br>
+                  1 Jan
                 </td>
               <% end %>
 
               <td class="duty-place"><%= place.name %></td>
-              <% timeslots = Timeslot.where(day: day, place: place).includes(:time_range)
-                .order('time_ranges.start') %>
+              <% timeslots = Timeslot.where(day: day, place: place)
+                .includes(:time_range).order('time_ranges.start') %>
 
               <% if timeslots.empty? %>
                 <% offset = (@end_time - @start_time) / Timeslot::TIME_SNAP %>
