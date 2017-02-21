@@ -5,8 +5,8 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  start      :time             not null
-#  end        :time             not null
+#  start_time :time             not null
+#  end_time   :time             not null
 #
 
 FactoryGirl.define do

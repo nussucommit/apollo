@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220154712) do
+ActiveRecord::Schema.define(version: 20170221040300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20170220154712) do
   create_table "time_ranges", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.time     "start",      null: false
-    t.time     "end",        null: false
+    t.time     "start_time", null: false
+    t.time     "end_time",   null: false
   end
 
   create_table "timeslots", force: :cascade do |t|
@@ -53,23 +53,18 @@ ActiveRecord::Schema.define(version: 20170220154712) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "username",                            null: false
-    t.string   "name",                                null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "matric_number",                       null: false
-    t.string   "phone_number",                        null: false
-    t.string   "cell",                                null: false
-    t.string   "position",                            null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "username",      null: false
+    t.string   "name",          null: false
+    t.string   "email",         null: false
+    t.string   "matric_number", null: false
+    t.string   "phone_number",  null: false
+    t.string   "cell",          null: false
+    t.string   "position",      null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["matric_number"], name: "index_users_on_matric_number", unique: true, using: :btree
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
