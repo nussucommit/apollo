@@ -27,8 +27,7 @@
 #
 
 class User < ApplicationRecord
-  devise :database_authenticatable, :recoverable,
-         :rememberable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
   has_many :duties
   has_many :timeslots
   validates :username, :name, :email, :matric_number, presence: true
