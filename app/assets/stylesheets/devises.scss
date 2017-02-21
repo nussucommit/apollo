@@ -1,0 +1,31 @@
+.shared-links {
+  color: white;
+}
+.jumbotron-body {
+  background-image: image("Cyberia.png");
+}
+#jumbotron-narrow {
+  border-radius: 6%;
+  width: 300px;
+  padding-top: 50px;
+  padding-bottom:50px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: auto;
+  margin-top: 10%;
+  background-color: #404040;
+}
+#jumbotron-title {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  margin-top: -50px;
+  padding-top: 30px;
+  text-align: center;
+}
+#jumbotron-title {
+  h2{
+    background: white;
+    padding-bottom: 15px;
+    padding-top: 10px;
+  }
+}

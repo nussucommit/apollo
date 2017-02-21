@@ -1,8 +1,5 @@
 class DutiesController < ApplicationController
   def index
-    @duties = Duty.find_this_week
-    @time_ranges = Time_range.all
-    @places = Place.all
   end
 
   def process_grab
