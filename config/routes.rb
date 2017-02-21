@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
     def process_grab
       @user_id = User.find(params[:user_id])
-      @duty_id = Duty.find(params[:duty_id]))
+      @duty_id = Duty.find(params[:duty_id])
 
       # user_id of duty_id should and must be null
       redirect_to action: 'index' if @duty_id.update(@user_id)
@@ -45,9 +45,5 @@ Rails.application.routes.draw do
 
       redirect_to action: 'index' if @timeslot_id.update(@user_id)
     end
-
-
-
-
-
+  end
 end

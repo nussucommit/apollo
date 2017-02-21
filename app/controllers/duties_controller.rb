@@ -13,7 +13,7 @@ class DutiesController < ApplicationController
 
   def process_grab
     @user = User.find(params[:user_id])
-    @duty = Duty.find(params[:duty_id]))
+    @duty = Duty.find(params[:duty_id])
 
     # user_id of duty_id should and must be null
     redirect_to action: 'index' if @duty.update(@user_id)
@@ -26,7 +26,7 @@ class DutiesController < ApplicationController
     redirect_to action: 'index' if @duty.update(:user_id, nil)
   end
 
-  def admin_edit#mass edit
+  def admin_edit # mass edit
     @user = User.find(params[:user_id])
     @duties = Duty.find(params[:duty_ids])
   end
@@ -37,11 +37,11 @@ class DutiesController < ApplicationController
     @duties.each do |duty|
       duty.process_grab(duty.params[:user_id], params[:duty_id])
       unless duty.update(duty_params)
-        flash[:notice] = "Error!"
+        flash[:notice] = 'Error!'
         render 'admin_edit'
       end
     end
-    flash[:notice] = "Successfully update the duty status!"
+    flash[:notice] = 'Successfully update the duty status!'
     redirect_to root_path
   end
 
@@ -55,11 +55,12 @@ class DutiesController < ApplicationController
   def mass_sel_default
     @duties = Duty.find(params[:duty_ids])
     @duties.each do |duty|
-      duty.set_default(duty, duty.params[:user_id], self.params[:timeslot_id])
+      duty.set_default(duty, duty.params[:user_id], params[:timeslot_id])
     end
   end
 
-private
+  private
+
   def user_id_params
     params.require(:users).permit(:user_id)
   end
@@ -71,6 +72,4 @@ private
   def timeslot_params
     params.require(:timeslots).permit(:timeslot_id)
   end
-end
-
 end
