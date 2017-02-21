@@ -1,0 +1,141 @@
+<html lang="en">
+  <head>
+    <title>NUSSU commIT</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widspan=device-widspan, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">NUSSU commIT</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">Admin</a></li>
+            <li><a href="#">Grab Duty</a></li>
+            <li><a href="#">Problem Report</a></li>
+            <li><a href="#">Timesheet</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="#">Guide</a></li>
+            <li><a href="#">EOD</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Username
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Schedule Availability</a></li>
+                <li><a href="#">Money Tracking</a></li>
+                <li><a href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="hidden-xs">
+            <h2>Announcements</h2>
+            <div>
+              <h3>Angel Mortal Game has Ended</h3>
+              <p>Check your angels here: (blah). Scold your angel if you don't get anything</p>
+            </div>
+            <hr>
+            <h4>AY16/17 Sem 2 Week 7</h4>
+            <h4>4/16 duty hours this week.</h4>
+          </div>
+
+          <ul class="pagination" id="duty-pagination">
+            <li class="page-item">
+              <a class="page-link" href="#">Prev Week</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next Week</a>
+            </li>
+          </ul>
+          <div class="form-group hidden-xs">
+            <div>
+              <label for="go-to-date">Go to date:</label>
+              <input name="go-to-date" type="date" class="form-control"/>
+            </div>
+          </div>
+          <h4>Next duty: Wed 22/2 0800-1000</h4>
+        </div>
+
+        <div class="col-sm-9">
+          <div class="table-responsive">
+            <table class="table table-condensed timetable">
+              <tr>
+                <th class="last-row-in-day"></th>
+
+                <% step = 1.hour %>
+                <% (@start_time.to_i..@end_time.to_i).step(step).each do |time| %>
+                  <% if time == @end_time.to_i %>
+                    <th class="last-time last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
+                  <% else %>
+                    <th colspan="<%= step / Timeslot::TIME_SNAP %>" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
+                  <% end %>
+                <% end %>
+              </tr>
+
+              <% Timeslot.days.keys.each do |day| %>
+                <% Place.all.each_with_index do |place, idx| %>
+                  <tr <%= 'class=last-row-in-day' if idx == Place.count - 1 %>>
+                    <% if idx == 0 %>
+                      <td class="duty-day" rowspan="<%= Place.count %>">
+                        <%= day[0..2] %><br>1 Jan
+                      </td>
+                    <% end %>
+
+                    <td class="duty-place"><%= place.name %></td>
+                    <% timeslots = Timeslot.where(day: day, place: place).includes(:time_range)
+                      .order('time_ranges.start') %>
+
+                    <% if timeslots.empty? %>
+                      <% offset = (@end_time - @start_time) / Timeslot::TIME_SNAP %>
+                    <% else %>
+                      <% offset = (timeslots.first.time_range.start - @start_time) / Timeslot::TIME_SNAP %>
+                    <% end %>
+
+                    <% unless offset.zero? %>
+                      <td colspan="<%= offset %>" class="offset-cell"></td>
+                    <% end %>
+
+                    <% timeslots.each do |ts| %>
+                      <% range = (ts.time_range.end - ts.time_range.start) / Timeslot::TIME_SNAP %>
+                      <td colspan="<%= range %>" class="duty-cell"><%= "#{ts.default_user.name}" %></td>
+                    <% end %>
+
+                    <% unless timeslots.empty? %>
+                      <% last_offset = (@end_time - timeslots.last.time_range.end) / Timeslot::TIME_SNAP %>
+                      <% unless last_offset.zero? %>
+                        <td colspan="<%= last_offset %>" class="offset-cell"></td>
+                      <% end %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
