@@ -26,6 +26,16 @@ class DutiesController < ApplicationController
     redirect_to action: 'index' if @duty.update(:user_id, nil)
   end
 
+  def edit
+    render 'admin_edit'
+  end
+
+  def update
+    render 'admin_update'
+  end
+
+
+
   def admin_edit#mass edit
     @user = User.find(params[:user_id])
     @duties = Duty.find(params[:duty_ids])
@@ -52,7 +62,7 @@ class DutiesController < ApplicationController
     redirect_to action: 'index' if @timeslot.update(@user_id)
   end
 
-  def mass_sel_default
+  def mass_set_default
     @duties = Duty.find(params[:duty_ids])
     @duties.each do |duty|
       duty.set_default(duty, duty.params[:user_id], self.params[:timeslot_id])
