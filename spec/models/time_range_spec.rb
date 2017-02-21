@@ -18,12 +18,12 @@ RSpec.describe TimeRange, type: :model do
   end
 
   it 'does not save if start column is null' do
-    time_range = build(:time_range, start: nil)
+    time_range = build(:time_range, start_time: nil)
     expect(time_range.save).to be false
   end
 
   it 'does not save if end column is null' do
-    time_range = build(:time_range, end: nil)
+    time_range = build(:time_range, end_time: nil)
     expect(time_range.save).to be false
   end
 
@@ -32,12 +32,16 @@ RSpec.describe TimeRange, type: :model do
   end
 
   it 'has start with multiple of 30 minutes' do
-    time_range = build(:time_range, start: '09:09'.to_time)
+    today = Time.zone.today
+    time_range = build(:time_range, start_time:
+                 Time.zone.local(today.year, today.month, today.day, 9, 9))
     expect(time_range.save).to be false
   end
 
-#  it 'has end with multiple of 30 minutes' do
-#   time_range = build(:time_range, add_attribute(:end): '17:17'.to_time)
-#   expect(time_range.save).to be false
-# end
+  it 'has end with multiple of 30 minutes' do
+    today = Time.zone.today
+    time_range = build(:time_range, end_time:
+                 Time.zone.local(today.year, today.month, today.day, 17, 17))
+    expect(time_range.save).to be false
+  end
 end

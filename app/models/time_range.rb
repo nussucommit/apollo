@@ -11,16 +11,18 @@
 
 class TimeRange < ApplicationRecord
   has_many :timeslots
-  validates :start, presence: true
-  validates :end, presence: true
+  validates :start_time, presence: true
+  validates :end_time, presence: true
   validate :start_is_multiple_of_thirty_minutes
   validate :end_is_multiple_of_thirty_minutes
 
   def start_is_multiple_of_thirty_minutes
-    errors.add :start, 'must be multiple of 30 minutes' if (start.to_i % 30.minutes.to_i != 0)
+    return if (start_time.to_i % 30.minutes).zero?
+    errors.add :start_time, 'must be multiple of 30 minutes'
   end
 
   def end_is_multiple_of_thirty_minutes
-    errors.add :end, 'must be multiple of 30 minutes' if (__send__(:end).to_i % 30.minutes.to_i != 0)
+    return if (end_time.to_i % 30.minutes).zero?
+    errors.add :end_time, 'must be multiple of 30 minutes'
   end
 end

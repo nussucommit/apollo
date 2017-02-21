@@ -12,11 +12,11 @@ Place.create(name: 'AS8')
 
 ('08:00'.to_time.to_i..'09:30'.to_time.to_i).step(30.minutes).each do |time|
   start = Time.zone.at(time)
-  TimeRange.create(start: start, end: start + 30.minutes)
+  TimeRange.create(start_time: start, end_time: start + 30.minutes)
 end
 ('10:00'.to_time.to_i..'20:00'.to_time.to_i).step(1.hour.to_i).each do |time|
   start = Time.zone.at(time)
-  TimeRange.create(start: start, end: start + 1.hour)
+  TimeRange.create(start_time: start, end_time: start + 1.hour)
 end
 
 User.create(username: 'admin', name: 'Elferia Valkyrie',
@@ -28,8 +28,8 @@ User.create(username: 'admin', name: 'Elferia Valkyrie',
 Date::DAYNAMES.each do |day|
   TimeRange.all.each do |tr|
     mc = nil
-    open = tr.start.in_time_zone.strftime('%H%M')
-    close = tr.end.in_time_zone.strftime('%H%M')
+    open = tr.start_time.in_time_zone.strftime('%H%M')
+    close = tr.end_time.in_time_zone.strftime('%H%M')
 
     if day == 'Sunday'
       next if open < '0930' || close > '1500'
@@ -51,8 +51,8 @@ end
 Date::DAYNAMES.each do |day|
   TimeRange.all.each do |tr|
     mc = false
-    open = tr.start.in_time_zone.strftime('%H%M')
-    close = tr.end.in_time_zone.strftime('%H%M')
+    open = tr.start_time.in_time_zone.strftime('%H%M')
+    close = tr.end_time.in_time_zone.strftime('%H%M')
 
     next if day == 'Sunday'
     next if (day == 'Saturday') && (open < '0800' || close > '1700')
