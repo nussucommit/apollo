@@ -43,7 +43,7 @@
             <% if time == @end_time.to_i %>
               <th class="last-time last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
             <% else %>
-              <th colspan="<%= step / Timeslot::TIME_SNAP %>" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
+              <th colspan="<%= step / TimeRange::TIME_SNAP %>" class="last-row-in-day"><%= Time.at(time).strftime('%H%M') %></th>
             <% end %>
           <% end %>
         </tr>
@@ -64,9 +64,9 @@
                 .includes(:time_range).order('time_ranges.start') %>
 
               <% if timeslots.empty? %>
-                <% offset = (@end_time - @start_time) / Timeslot::TIME_SNAP %>
+                <% offset = (@end_time - @start_time) / TimeRange::TIME_SNAP %>
               <% else %>
-                <% offset = (timeslots.first.time_range.start - @start_time) / Timeslot::TIME_SNAP %>
+                <% offset = (timeslots.first.time_range.start - @start_time) / TimeRange::TIME_SNAP %>
               <% end %>
 
               <% unless offset.zero? %>
@@ -74,12 +74,12 @@
               <% end %>
 
               <% timeslots.each do |ts| %>
-                <% range = (ts.time_range.end - ts.time_range.start) / Timeslot::TIME_SNAP %>
+                <% range = (ts.time_range.end - ts.time_range.start) / TimeRange::TIME_SNAP %>
                 <td colspan="<%= range %>" class="duty-cell"><%= "#{ts.default_user.name}" %></td>
               <% end %>
 
               <% unless timeslots.empty? %>
-                <% last_offset = (@end_time - timeslots.last.time_range.end) / Timeslot::TIME_SNAP %>
+                <% last_offset = (@end_time - timeslots.last.time_range.end) / TimeRange::TIME_SNAP %>
                 <% unless last_offset.zero? %>
                   <td colspan="<%= last_offset %>" class="offset-cell"></td>
                 <% end %>
