@@ -26,4 +26,6 @@ class Timeslot < ApplicationRecord
   enum day: Date::DAYNAMES
   validates :day, :default_user_id, :time_range_id, :place_id, presence: true
   validates :mc_only, inclusion: [true, false]
+
+  TIME_SNAP = 30.minutes
 end

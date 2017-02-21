@@ -10,26 +10,21 @@
     &.last-time {
       text-align: right;
     }
+    
+    &.duty-cell {
+      border: 1px solid #999 !important;
+    }
   }
 
   td {
     vertical-align: middle !important;
   }
-
-  .duty-day {
-    border-bottom: 1px solid #999 !important;
-    line-height: 1.2;
-  }
-}
-
-.first-place {
-  background-color: #ffeeee;
-}
-
-.second-place {
-  background-color: #eeffee;
 }
 
 .last-row-in-day.last-row-in-day {
   border-bottom: 1px solid #999 !important;
+}
+
+#duty-pagination {
+  margin: 10px 0;
 }
