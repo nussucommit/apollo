@@ -4,6 +4,9 @@ class DutiesController < ApplicationController
                   TimeRange.order(:start_time).first.start_time
     @end_time = TimeRange.order(:end_time).last &&
                 TimeRange.order(:end_time).last.end_time
-    @announcements = Announcement.all
+    @time_now = Time.now
+    @announcements = Announcement.where('date > ?', Time.zone.now)
+                                .order(created_at: :asc)
+                                .limit(3)
   end
 end
