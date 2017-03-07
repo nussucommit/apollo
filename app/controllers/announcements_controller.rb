@@ -13,7 +13,7 @@ class AnnouncementsController < ApplicationController
   def index
     @announcements = Announcement.all
   end
-  
+
   private
 
   def announcement_params
