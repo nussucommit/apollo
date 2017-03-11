@@ -5,13 +5,16 @@ class AnnouncementsController < ApplicationController
 
   def create
     @announcement = Announcement.new(announcement_params)
-    flash.now[:notice] = 'Announcement created!' if @announcement.save
-
-    render :new
+    if @announcement.save
+      redirect_to announcements_path
+      flash[:notice] = 'Announcement created!'
+    else
+      redirect_to announcements_new_path
+    end
   end
 
   def index
-    @announcements = Announcement.all
+    @announcements = Announcement.order(created_at: :desc)
   end
 
   private
