@@ -27,6 +27,13 @@ class DutiesController < ApplicationController
 
   def edit # mass edit
     @duties = Duty.all
+    @timeslots = Timeslot.all.order(:start_time)
+    @places = Place.all
+    week_offset = params[:week_offset]
+    day_offset = (Time.zone.now.wday - 1) % 7
+    start_date = Time.zone.now - day_offset.days + week_offset.weeks
+    @duties = Duty.where("date >= #{start_date} && " \
+                         "date < #{start_date + 7.days}")
   end
 
   def update

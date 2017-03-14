@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :user
-  
+
   default_url_options host: 'localhost:3000'
   root 'duties#index'
 
