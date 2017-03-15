@@ -20,7 +20,7 @@ RSpec.describe DutiesController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
 
-    it 'grabs the duty succesfully' do
+    it 'grabs the duty successfully' do
       user = create(:user)
       duty = create(:duty, user: nil)
 
@@ -29,7 +29,7 @@ RSpec.describe DutiesController, type: :controller do
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
       duty.reload
-      expect(duty.user).to_eq user
+      expect(duty.user).to eq user
     end
 
     it 'redirects to index upon successful grab' do
@@ -40,7 +40,7 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(response).to redirect_to duty_index_path
+      expect(response).to redirect_to duties_path
     end
 
     it 'shows correct flash message upon successful grab' do
@@ -51,7 +51,7 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(@flash[:notice]).to_eq 'Succesfully grabbed duty!'
+      expect(flash[:notice]).to eq 'Successfully grabbed duty!'
     end
 
     it 'shows error if user is not found' do
@@ -62,7 +62,7 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(@flash[:notice]).to_eq 'Succesfully grabbed duty!'
+      expect(flash[:notice]).to eq 'Successfully grabbed duty!'
     end
 
     it 'shows error if duty is not found' do
@@ -73,7 +73,7 @@ RSpec.describe DutiesController, type: :controller do
 
       expect do
         patch :process_grab, params: { user_id: 999_999, duty_id: duty.id }
-      end.to raise_error
+      end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'flashes alert if user of the duty is not nil' do
@@ -84,7 +84,7 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(@flash[:alert]).to_eq 'Failed to grab duty!'
+      expect(flash[:alert]).to eq 'Failed to grab duty!'
     end
 
     it 'redirects to index upon failed grab' do
@@ -95,7 +95,7 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(response).to redirect_to duty_index_path
+      expect(response).to redirect_to duties_path
     end
   end
 end

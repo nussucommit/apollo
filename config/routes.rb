@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   resources :users
   resources :duties, only: [:index, :edit, :update] do
-    patch '/grab', to: 'duty#process_grab'
-    patch '/drop', to: 'duty#process_drop'
+    collection do
+      patch '/grab', to: 'duties#process_grab'
+      patch '/drop', to: 'duties#process_drop'
+    end
   end
+
+  get '/admin', to: 'others#admin'
 end
