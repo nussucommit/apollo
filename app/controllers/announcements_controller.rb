@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :admin_user, only: [:create, :destroy, :update]
+  # before_action :admin_user, only: [:create, :destroy, :update]
 
   def new
     @announcement = Announcement.new
