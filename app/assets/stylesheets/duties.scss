@@ -2,7 +2,7 @@
   min-width: 2048px;
   table-layout: fixed;
 
-  th,
+  
   td {
     border: 0 !important;
     text-align: center;
@@ -10,7 +10,7 @@
     &.last-time {
       text-align: right;
     }
-    
+
     &.duty-cell {
       border: 1px solid #999 !important;
     }

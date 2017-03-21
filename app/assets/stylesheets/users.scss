@@ -1,3 +1,29 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.member_table{
+  background-color: white !important;
+  border-radius: 15px !important;
+  overflow: hidden;
+  box-shadow: 1px 1px 1px #999 !important;
+}
+
+.member_cell{
+  border: 2px solid #e6e9ef;
+}
+
+.member_th{
+  background-color: grey !important;
+  color: white !important;
+  text-align: center;
+}
+
+tr:hover{
+  background-color: #dae3f2;
+}
+
+th:hover{
+  background-color: black !important;
+}

@@ -1,22 +1,22 @@
 <h1>All Members</h1>
-
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Matric No.</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Cell</th>
-    <th>Position</th>
+<hr>
+<table class="table member_table">
+  <tr class="member_line">
+    <th class="member_cell member_th">Name<br><%= image_tag "icons/two-direction-arrow.png", :size => '30x15' %></th>
+    <th class="member_cell member_th">Matric No.<br><%= image_tag "icons/two-direction-arrow.png", :size => '30x15' %></th>
+    <th class="member_cell member_th">Email<br><%= image_tag "icons/two-direction-arrow.png", :size => '30x15' %></th>
+    <th class="member_cell member_th">Phone<br><%= image_tag "icons/two-direction-arrow.png", :size => '30x15' %></th>
+    <th class="member_cell member_th">Cell<br><%= image_tag "icons/two-direction-arrow.png", :size => '30x15' %></th>
+    <th class="member_cell member_th">Position<br><%= image_tag "icons/two-direction-arrow.png", :size => '30x15' %></th>
   </tr>
   <% @users.each do |u| %>
-    <tr>
-      <td><%= u.name %></td>
-      <td><%= u.matric_number %></td>
-      <td><%= u.email %></td>
-      <td><%= u.phone_number %></td>
-      <td><%= u.cell %></td>
-      <td><%= u.position %></td>
+    <tr class="member_line">
+      <td class="member_cell"><%= u.name %></td>
+      <td class="member_cell"><%= u.matric_number %></td>
+      <td class="member_cell"><%= u.email %></td>
+      <td class="member_cell"><%= u.phone_number %></td>
+      <td class="member_cell"><%= u.cell %></td>
+      <td class="member_cell"><%= u.position %></td>
     </tr>
   <% end %>
 </table>

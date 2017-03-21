@@ -15,3 +15,10 @@
 @import "*";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body{
+  background: #e6e9ef;
+}
+h1,h2,h3,p{
+  text-shadow: 1px 1px #999;
+}
