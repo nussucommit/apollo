@@ -6,6 +6,14 @@ class PlacesController < ApplicationController
   def create
     Place.create(params[:place])
   end
+  
+  def edit
+    @places = Place.find(params[:place_id])
+  end
+
+  def update
+    Place.update(params[:place])
+  end
 
   private
     def place_params

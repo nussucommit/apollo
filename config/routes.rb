@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     patch '/grab', to: 'duty#process_grab'
     patch '/drop', to: 'duty#process_drop'
   end
+  resources :places
 end
