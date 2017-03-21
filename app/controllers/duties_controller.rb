@@ -26,7 +26,6 @@ class DutiesController < ApplicationController
   end
 
   def edit # mass edit
-    @duties = Duty.all
     @timeslots = Timeslot.all.order(:start_time)
     @places = Place.all
     week_offset = params[:week_offset]
