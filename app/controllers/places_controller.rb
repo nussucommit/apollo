@@ -1,4 +1,6 @@
 class PlacesController < ApplicationController
+  def index; end
+
   def new
     @place = Place.new
   end
@@ -14,7 +16,12 @@ class PlacesController < ApplicationController
   def update
     Place.update(params[:place])
   end
-
+  
+  def destroy
+    Place.find(params[:place_id]).destroy
+    redirect_to :index
+  end
+  
   private
 
   def place_params
