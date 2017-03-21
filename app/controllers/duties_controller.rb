@@ -11,7 +11,7 @@ class DutiesController < ApplicationController
     else
       flash[:alert] = 'Failed to grab duty!'
     end
-    redirect_to :index
+    redirect_to duties_path
   end
 
   def process_drop
@@ -22,11 +22,10 @@ class DutiesController < ApplicationController
     else
       flash[:alert] = 'Failed to drop duty!'
     end
-    redirect_to :index
+    redirect_to duties_path
   end
 
   def edit # mass edit
-    @duties = Duty.all
     @timeslots = Timeslot.all.order(:start_time)
     @places = Place.all
     week_offset = params[:week_offset]
