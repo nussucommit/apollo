@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220154712) do
+ActiveRecord::Schema.define(version: 20170221040300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcements", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.text     "contents",   null: false
+    t.datetime "date",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "duties", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -35,8 +43,8 @@ ActiveRecord::Schema.define(version: 20170220154712) do
   create_table "time_ranges", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "start",      null: false
-    t.datetime "end",        null: false
+    t.time     "start_time", null: false
+    t.time     "end_time",   null: false
   end
 
   create_table "timeslots", force: :cascade do |t|

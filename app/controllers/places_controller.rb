@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
   def create
     Place.create(params[:place])
   end
-  
+
   def edit
     @places = Place.find(params[:place_id])
   end
@@ -16,8 +16,8 @@ class PlacesController < ApplicationController
   end
 
   private
-    def place_params
-      params.require(:place).permit(:name)
-    end
 
+  def place_params
+    params.require(:place).permit(:name)
+  end
 end
