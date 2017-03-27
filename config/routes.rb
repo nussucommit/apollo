@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :duties
   resources :users
+  resources :announcements
   root 'duties#index'
 
   get '/admin', to: 'others#admin'
