@@ -11,6 +11,6 @@ Rails.application.routes.draw do
       patch '/drop', to: 'duties#process_drop'
     end
   end
-
   get '/admin', to: 'others#admin'
+  resources :places
 end
