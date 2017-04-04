@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
   end
 
   def edit
-    @places = Place.find(params[:place_id])
+    @places = Place.find(params[:id])
   end
 
   def update
@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
   end
 
   def destroy
-    Place.find(params[:place_id]).destroy
+    Place.find(params[:id]).destroy
     redirect_to :index
   end
 

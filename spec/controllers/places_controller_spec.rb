@@ -48,14 +48,14 @@ RSpec.describe PlacesController, type: :controller do
   describe 'GET #edit' do
     it 'redirects to login without a user' do
       place = create(:place)
-      get :edit, params: { place_id: place.id }
+      get :edit, id: place.id
       expect(response).to redirect_to new_user_session_path
     end
 
     it 'does it successfully with a user logged in' do
       sign_in create(:user)
       place = create(:place)
-      get :edit, params: { place_id: place.id }
+      get :edit, id: place.id
       expect(response).to have_http_status :ok
     end
   end
