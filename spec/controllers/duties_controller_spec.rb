@@ -69,7 +69,6 @@ RSpec.describe DutiesController, type: :controller do
 
     it 'shows error if duty is not found' do
       user = create(:user)
-      duty = create(:duty, user: nil)
 
       sign_in user
 
