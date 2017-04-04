@@ -87,3 +87,6 @@ gem 'mailgun-ruby'
 gem 'autoprefixer-rails'
 # Bootstrap yay
 gem 'bootstrap-sass'
+# Assigns gem for rspec
+gem 'rails-controller-testing'
+

@@ -4,11 +4,11 @@ class PlacesController < ApplicationController
   end
 
   def new
-    @place = Place.new
+    @place = Place.create
   end
 
   def create
-    Place.create(params[:place])
+    Place.new(params[:place])
   end
 
   def edit

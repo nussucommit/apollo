@@ -27,7 +27,9 @@ RSpec.describe PlacesController, type: :controller do
     end
 
     it 'is empty when first created' do
-      expect(:new).to be_empty
+      sign_in create(:user)
+      get :new
+      expect(assigns(:place)).to be_a_new(Place) 
     end
   end
 
@@ -44,14 +46,14 @@ RSpec.describe PlacesController, type: :controller do
 
   describe 'GET #edit' do
     it 'redirects to login without a user' do
-      place = create(place)
+      place = create(:place)
       get :edit, params: { place_id: place.id }
       expect(response).to redirect_to new_user_session_path
     end
 
     it 'does it successfully with a user logged in' do
       sign_in create(:user)
-      place = create(place)
+      place = create(:place)
       get :edit, params: { place_id: place.id }
       expect(response).to have_http_status :ok
     end
