@@ -36,11 +36,12 @@ RSpec.describe PlacesController, type: :controller do
   describe 'POST #create' do
     it 'creates a new place successfully' do
       user = create(:user)
+      place = create(:place)
 
       sign_in user
 
-      post :create, params: create(:place)
-      expect
+      post :create, params: { place: attributes_for(:place) }
+      expect(Place.find_by(name: place.name)).not_to be nil
     end
   end
 

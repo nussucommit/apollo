@@ -62,7 +62,9 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(flash[:notice]).to eq 'Successfully grabbed duty!'
+      expect do
+        patch :process_grab, params: { user_id: -1, duty_id: duty.id }
+      end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'shows error if duty is not found' do
@@ -72,7 +74,7 @@ RSpec.describe DutiesController, type: :controller do
       sign_in user
 
       expect do
-        patch :process_grab, params: { user_id: 999_999, duty_id: duty.id }
+        patch :process_grab, params: { user_id: user.id, duty_id: -1 }
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
