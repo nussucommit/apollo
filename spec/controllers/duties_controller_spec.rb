@@ -62,7 +62,9 @@ RSpec.describe DutiesController, type: :controller do
 
       patch :process_grab, params: { user_id: user.id, duty_id: duty.id }
 
-      expect(flash[:notice]).to eq 'Successfully grabbed duty!'
+      expect do
+        patch :process_grab, params: { user_id: -1, duty_id: duty.id }
+      end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'shows error if duty is not found' do
@@ -72,7 +74,7 @@ RSpec.describe DutiesController, type: :controller do
       sign_in user
 
       expect do
-        patch :process_grab, params: { user_id: 999_999, duty_id: duty.id }
+        patch :process_grab, params: { user_id: user.id, duty_id: -1 }
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
@@ -98,7 +100,7 @@ RSpec.describe DutiesController, type: :controller do
       expect(response).to redirect_to duties_path
     end
   end
-  
+
   describe 'PATCH #process_drop' do
     it 'redirects to login without a user' do
       patch :process_drop
@@ -144,7 +146,7 @@ RSpec.describe DutiesController, type: :controller do
       duty = create(:duty, user: user)
 
       sign_in user
-      
+
       patch :process_drop, params: { duty_id: duty.id }
 
       expect(flash[:notice]).to eq 'Successfully dropped duty!'
@@ -161,17 +163,6 @@ RSpec.describe DutiesController, type: :controller do
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
-    it 'flashes alert if user of the duty is nil' do
-      user = create(:user)
-      duty = create(:duty)
-
-      sign_in user
-
-      patch :process_drop, params: { duty_id: duty.id }
-
-      expect(flash[:alert]).to eq 'Failed to drop duty!'
-    end
-
     it 'redirects to index upon failed grab' do
       user = create(:user)
       duty = create(:duty)
@@ -184,47 +175,59 @@ RSpec.describe DutiesController, type: :controller do
     end
   end
 
-  describe 'GET #edit' do
+  describe 'GET #mass_edit' do
     it 'redirects to login without user' do
-      get :edit
-      expect(response).to redirect_to_new_user_session_path
+      get :mass_edit
+      expect(response).to redirect_to new_user_session_path
     end
 
     it 'gets duties from specified weeks' do
-      get :edit, params: { week_offset: 0 }
+      get :mass_edit, params: { week_offset: 0 }
 
-      expect(response).to redirect_to_new_user_session_path # dunno what syntax to expect duties given weeks
+      expect(response).to redirect_to new_user_session_path # dunno what syntax to expect duties given weeks
     end
   end
 
-  describe 'PATCH #update' do
+  describe 'PATCH #mass_update' do
     it 'redirects to login without user' do
-      patch :edit
-      expect(response).to redirect_to_new_user_session_path
+      patch :mass_update
+      expect(response).to redirect_to new_user_session_path
     end
 
-    it 'edits the duties successfully' do
+    it 'update the duties successfully' do
       user = create(:user)
-      duties = create(:duty)
+      duties = create_list(:duty, 3)
 
       sign_in user
 
-      patch :edit, params: { duties: duties } # how to get multiple duties as test case?
-  
-      duties.each do |duty_id, user_id|
-        expect(duty.user).to_eq user_id
+      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+
+      duties.each do |duty|
+        duty.reload
+        expect(duty.user).to eq user
       end
     end
 
-    it 'redirects to get upon successful edit' do
+    it 'redirects to get upon successful update' do
       user = create(:user)
-      duties = create(:duty)
+      duties = create_list(:duty, 3)
 
       sign_in user
 
-      patch :edit, params: { duties: duties } # how to get multiple duties as test case?
-    
-      expect(response).to redirect_to duties_path
+      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+
+      expect(response).to redirect_to mass_edit_duties_path
+    end
+
+    it 'shows notice upon successfull mass update' do
+      user = create(:user)
+      duties = create_list(:duty, 3)
+
+      sign_in user
+
+      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+
+      expect(flash[:notice]).to eq 'Successfully updated duties!'
     end
 
     it 'shows error if duty is not found' do
@@ -234,19 +237,19 @@ RSpec.describe DutiesController, type: :controller do
       sign_in user
 
       expect do
-        patch :edit, params: { duties: duties }
+        patch :mass_update, params: { duties: duties }
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
-    it 'redirects to index upon failed edit' do
+    it 'redirects to index upon failed update' do
       user = create(:user)
-      duties = create(:duty)
+      duties = create_list(:duty, 3)
 
       sign_in user
 
-      patch :edit, params: { duties: duties }
+      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
 
-      expect(response).to redirect_to duties_path
+      expect(response).to redirect_to mass_edit_duties_path
     end
   end
 end
