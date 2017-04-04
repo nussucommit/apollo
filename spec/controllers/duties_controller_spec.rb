@@ -152,12 +152,12 @@ RSpec.describe DutiesController, type: :controller do
 
     it 'shows error if duty is not found' do
       user = create(:user)
-      duty = create(:duty, user: user)
+      create(:duty, user: user)
 
       sign_in user
 
       expect do
-        patch :process_drop, params: { duty_id: 999_999 }
+        patch :process_drop, params: { duty_id: -1 }
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
@@ -182,7 +182,7 @@ RSpec.describe DutiesController, type: :controller do
     it 'gets duties from specified weeks' do
       get :mass_edit, params: { week_offset: 0 }
 
-      expect(response).to redirect_to new_user_session_path # dunno what syntax to expect duties given weeks
+      expect(response).to redirect_to new_user_session_path
     end
   end
 
@@ -198,7 +198,8 @@ RSpec.describe DutiesController, type: :controller do
 
       sign_in user
 
-      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+      patch :mass_update, params: { duty_ids: duties.pluck(:id),
+                                    user_id: user.id }
 
       duties.each do |duty|
         duty.reload
@@ -212,7 +213,8 @@ RSpec.describe DutiesController, type: :controller do
 
       sign_in user
 
-      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+      patch :mass_update, params: { duty_ids: duties.pluck(:id),
+                                    user_id: user.id }
 
       expect(response).to redirect_to mass_edit_duties_path
     end
@@ -223,7 +225,8 @@ RSpec.describe DutiesController, type: :controller do
 
       sign_in user
 
-      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+      patch :mass_update, params: { duty_ids: duties.pluck(:id),
+                                    user_id: user.id }
 
       expect(flash[:notice]).to eq 'Successfully updated duties!'
     end
@@ -245,7 +248,8 @@ RSpec.describe DutiesController, type: :controller do
 
       sign_in user
 
-      patch :mass_update, params: { duty_ids: duties.pluck(:id), user_id: user.id }
+      patch :mass_update, params: { duty_ids: duties.pluck(:id),
+                                    user_id: user.id }
 
       expect(response).to redirect_to mass_edit_duties_path
     end
