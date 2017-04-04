@@ -17,28 +17,26 @@ class DutiesController < ApplicationController
   def process_drop
     @duty = Duty.find(params[:duty_id])
 
-    if @duty.update(user: nil)
-      flash[:notice] = 'Successfully dropped duty!'
-    else
-      flash[:alert] = 'Failed to drop duty!'
-    end
-    redirect_to duties_path
+    @duty.update(user: nil)
+    redirect_to duties_path, notice: 'Successfully dropped duty!'
   end
 
-  def edit # mass edit
+  def mass_edit # mass edit
     @timeslots = Timeslot.all.order(:start_time)
     @places = Place.all
-    week_offset = params[:week_offset]
+    week_offset = params[:week_offset] || 0
     day_offset = (Time.zone.now.wday - 1) % 7
     start_date = Time.zone.now - day_offset.days + week_offset.weeks
     @duties = Duty.where("date >= #{start_date} && " \
                          "date < #{start_date + 7.days}")
   end
 
-  def update
-    @duties = params[:duties]
-    @duties.each do |duty_id, user_id|
-      Duty.find(duty_id).update(user_id: user_id)
+  def mass_update
+    @duties = Duty.find(params[:duty_ids])
+    @user = User.find(params[:user_id])
+    @duties.each do |duty|
+      duty.update(user: @user)
     end
+    redirect_to mass_edit_duties_path, notice: 'Successfully updated duties!'
   end
 end

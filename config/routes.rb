@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   root 'duties#index'
 
   resources :users
-  resources :duties, only: [:index, :edit, :update] do
+  resources :duties, only: [:index] do
     collection do
       patch '/grab', to: 'duties#process_grab'
       patch '/drop', to: 'duties#process_drop'
+      get '/mass-edit', to: 'duties#mass_edit'
+      patch '/mass-update', to: 'duties#mass_update'
     end
   end
   resources :places
