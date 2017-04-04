@@ -29,7 +29,7 @@ RSpec.describe PlacesController, type: :controller do
     it 'is empty when first created' do
       sign_in create(:user)
       get :new
-      expect(assigns(:place)).to be_a_new(Place) 
+      expect(assigns(:place)).to be_a_new(Place)
     end
   end
 
