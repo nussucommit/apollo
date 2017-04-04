@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
   end
 
   def create
-    Place.create(params[:place])
+    Place.new(place_params)
   end
 
   def edit

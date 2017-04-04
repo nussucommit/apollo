@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
   end
   resources :places
+  resources :timeslots
 
   get '/admin', to: 'others#admin'
 end
